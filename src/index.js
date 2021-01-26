@@ -1,13 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import Login from './Pages/Login'
+import HomePage from './Pages/HomePage';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Animals from './Pages/Animals';
+import Teste from './Pages/Teste';
+import AddAnimal from './Pages/AddAnimal';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <BrowserRouter>
+    <Switch>
+      <Route exact path = '/' component = {HomePage} /> 
+      <Route exact path = '/animais/' component = {Animals} />
+      <Route exact path = '/teste/' component = {Teste} />
+      <Route exct path = '/login/' component = {Login} />
+      <Route exct path = '/adicionar/animal/' component = {AddAnimal} />
+    </Switch>
+  </BrowserRouter>,
+
   document.getElementById('root')
 );
 

@@ -1,0 +1,12 @@
+Nav{
+    /* background-color: rgb(229, 241, 241); */
+    display: inline-block;
+    width: 100%;
+    justify-content: space-around;
+}
+
+Button{
+    margin-right: 10%;
+    margin-top: 1%;
+    width: 50%;
+}

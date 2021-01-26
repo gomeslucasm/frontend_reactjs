@@ -1,0 +1,27 @@
+/* #row-login{
+    background-color:white;
+    margin-bottom: 1%;
+    display:inline-flex;
+}
+
+#input-login{
+    background-color:white;
+    margin: 5%;
+} */
+
+#login-form{
+    /* background-color: #bbcecb; */
+    align-items: center;
+    align-self: center;
+    display:block;
+    /* justify-content:space-around;
+    display:flex-inline; */
+}
+
+#button-login{
+    width:20%;
+}
+
+#teste{
+    display: none;
+}

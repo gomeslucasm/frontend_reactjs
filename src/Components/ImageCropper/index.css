@@ -1,0 +1,25 @@
+/* ReactCrop{
+    width: 80%;
+    height: auto;
+} */
+
+.ReactCrop__image{
+    max-width: 50%;
+}
+
+/* .container{
+    width: 90%;
+} */
+
+/* #input-crop{
+    overflow: auto; */
+    /* display: block;
+    height: 50px;
+    width: 400px;
+    margin: 5px;
+    border-radius: 30px;
+    border: 1px solid black;
+    font-size: 16pt;
+    padding: 10px 20px;
+    box-sizing: content-box; */
+/* } */
