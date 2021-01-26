@@ -1,5 +1,6 @@
 import React from 'react';
 import AnimalForm from '../../Components/AnimalForm';
+import DefaultPage from '../../Components/DefaultPage';
 import PrivateDefaultPage from '../../Components/PrivateDefaultPage';
 
 
@@ -11,9 +12,13 @@ class AddAnimal extends React.Component {
 
     render(){
         return(
-            <PrivateDefaultPage>
+            <>
+            {/* <PrivateDefaultPage> */}
+            {/* </PrivateDefaultPage> */}
+            <DefaultPage>
                 <AnimalForm />
-            </PrivateDefaultPage>
+            </DefaultPage>
+            </>
         )
     }
 }
