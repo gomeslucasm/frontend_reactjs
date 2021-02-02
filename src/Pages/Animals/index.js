@@ -5,9 +5,9 @@ import AnimalCard from './Components/AnimalCard';
 import { Container, Row, Col } from 'reactstrap';
 import './index.css'
 /* import FilterMenu from './Components/FilterMenu'; */
-import { /* Button */ Form, FormGroup, Label, Input } from 'reactstrap';
+import { /* Button */ /* Form, FormGroup, Label, Input */ } from 'reactstrap';
 
-const URL = 'http://localhost:8000';
+
 class Animals extends React.Component{
     
     constructor(props){

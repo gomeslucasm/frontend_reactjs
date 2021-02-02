@@ -5,10 +5,11 @@ class apiPublicService{
 /*     constructor(){}
  */
     async getAnimals(url_query = '?'){
+        var url = ''
         if(url_query.length>1){
-            var url = `${API_URL}/api/public/animals/?${url_query}`;
+            url = `${API_URL}/api/public/animals/?${url_query}`;
         }else{
-            var url = `${API_URL}/api/public/animals/`;
+            url = `${API_URL}/api/public/animals/`;
         }
         
         const response = await axios.get(url);

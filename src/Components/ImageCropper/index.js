@@ -1,9 +1,9 @@
 import React from 'react';
 import Cropper from 'react-easy-crop'
-import { styles } from './styles'
+/* import { styles } from './styles' */
 import 'react-easy-crop/react-easy-crop.css'
 import './index.css'
-import { Row,Col, Modal, CustomInput,FormGroup,Form} from 'reactstrap'
+import {/*  Row,Col,  */Modal/* , CustomInput,FormGroup,Form */} from 'reactstrap'
 
 class ImageCropper extends React.Component {
     constructor(props){

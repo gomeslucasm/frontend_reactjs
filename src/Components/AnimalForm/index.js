@@ -1,8 +1,7 @@
 import React from 'react';
-import {TextField, Button,FormControl,InputLabel,Select,MenuItem} from '@material-ui/core';
 import UserService from '../../Service/UserService';
-import {Row,Col,Form, FormGroup,Label, Input} from 'reactstrap'
-import ImageCropper from '../ImageCropper';
+import {Row,Col/* ,Form */, FormGroup,Label, Input} from 'reactstrap'
+/* import ImageCropper from '../ImageCropper'; */
 import axios from 'axios';
 
 class AnimalForm extends React.Component {
@@ -54,20 +53,24 @@ class AnimalForm extends React.Component {
         var form = this.state.form
         var imgs = this.state.imgs
         form['animal_photo'] = imgs
+        var keys = Object.keys(form);
+        var form_key_data = []
 
         var form_data = new FormData()
-        for(var key in form){
-                if(key === 'animal_photo'){
-                    form[key].forEach((data,index)=>{
+        for(var i; i<keys.length; i++){
+            var form_key = keys[i] 
+                if(form_key === 'animal_photo'){
+                    form_key_data = form[form_key] // eslint-disable-next-line
+                    form_key_data.map((data,index)=>{
                         console.log(data, data.name)
-                        form_data.append(key + '[' + String(index) + ']', 
+                        return form_data.append(form_key + '[' + String(index) + ']', 
                         data, data.name)
                     })
                    
                     /* await form_data.append(key, form[key]) */
                 }else{
-                    console.log(key,'=',form[key])
-                    await form_data.append(key, form[key])
+                    console.log(form_key,'=',form[form_key])
+                    await form_data.append(form_key, form[form_key])
                 }
             }
         await axios.post(url,form_data,
