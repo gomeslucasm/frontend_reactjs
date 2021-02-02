@@ -13,7 +13,8 @@ export default class  UserService{
         const url = `${API_URL}api/token/`;
         return await axios.post(url,data,{
             headers:{
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin':'*'
             }})
     }
     /* Método que testa se o usuário está logado */
