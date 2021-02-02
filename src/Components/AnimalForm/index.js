@@ -49,7 +49,7 @@ class AnimalForm extends React.Component {
 
     async postAnimal(e){
         e.preventDefault()
-        const url = 'http://localhost:8000/api/private/animals/'
+        const url = 'https://django-backend-canil.azurewebsites.net/api/private/animals/'
         var form = this.state.form
         var imgs = this.state.imgs
         form['animal_photo'] = imgs

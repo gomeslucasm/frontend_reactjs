@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_URL = 'http://localhost:8000/';
+const API_URL = 'https://django-backend-canil.azurewebsites.net/';
 
 /* Métodos para autenticação, criação e obtenção de usuários */
 export default class  UserService{
