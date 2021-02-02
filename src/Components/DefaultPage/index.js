@@ -5,8 +5,9 @@ import NavHeader from './Components/NavHeader';
 
 
 const Div = styled.div`
-    width: 100%;
-    min-height: 600px;
+    max-width: 100%;
+    width:auto;
+    min-height: 100vh;
     height: auto;
     background-color: #A3B8B5;
     margin-top: 0 px;
@@ -15,7 +16,8 @@ const Div = styled.div`
 
 const Div2 = styled.div`
     display:block;
-    width: 100%;
+    max-width: 100%;
+    width:auto;
     margin-top: 3%;
     margin-bottom: 3%;
     margin-left: 3%;

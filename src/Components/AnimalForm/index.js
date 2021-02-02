@@ -1,8 +1,8 @@
 import React from 'react';
-import { Input ,TextField, Button} from '@material-ui/core';
+import {TextField, Button,FormControl,InputLabel,Select,MenuItem} from '@material-ui/core';
 import UserService from '../../Service/UserService';
-import {Row,Col,Form} from 'reactstrap'
-import ImageCropper from '../../Components/ImageCropper';
+import {Row,Col,Form, FormGroup,Label, Input} from 'reactstrap'
+import ImageCropper from '../ImageCropper';
 import axios from 'axios';
 
 class AnimalForm extends React.Component {
@@ -15,10 +15,10 @@ class AnimalForm extends React.Component {
                 'birth_date':'2020-12-12',
                 'description':'teste',
                 'size':'P',
-                'code':'',
+                'code':null,
                 'location':'C',
                 'sex':'M',
-                'reponsible_volunteer':'',
+                'responsible_volunteer':null,
                 'castrated':false,
                 'user':'1',
                 'animal_photo':''
@@ -26,10 +26,14 @@ class AnimalForm extends React.Component {
             imgs:[],
             users:{},
             volunteers:{},
+            show_volunteers:null,
+            show_canil_info:null,
         }
         this.postAnimal = this.postAnimal.bind(this)
         this.handleCroppedImage = this.handleCroppedImage.bind(this)
         this.updatedRender=this.updatedRender.bind(this)
+        this.deleteCroppedImage = this.deleteCroppedImage.bind(this)
+        this.handleChange = this.handleChange.bind(this)
     }
     
     async componentDidMount() {
@@ -81,50 +85,207 @@ class AnimalForm extends React.Component {
         var imgs = this.state.imgs
         imgs.push(img)
         this.setState({imgs:imgs})
-        console.log('estado',this.state)
-        console.log('n_imagens', this.state.imgs.length)
     }
 
     updatedRender(){
         console.log('imgs',this.state.imgs)
     }
 
+    deleteCroppedImage(e){
+        const idx = Number(e.target.name)
+        var imgs = this.state.imgs
+        console.log('idx',idx)
+        imgs.splice(idx, 1);
+        /* imgs = imgs.slice(0, idx).concat(imgs.slice(-idx)); */
+        this.setState({imgs:imgs})
+    }
+
+    handleChange(e){
+        /* e.target.label = '' */
+        var form = this.state.form
+        
+
+        if(e.target.name === 'location' ){
+            if(e.target.value === 'V'){
+                console.log('entrou')
+                this.setState({show_volunteers:true})
+                this.setState({show_canil_info:null})
+                form['code'] = null
+            }else{
+                console.log('entrou na do canil')
+                this.setState({show_canil_info:true})
+                this.setState({show_volunteers:null})
+                form['responsible_volunteer'] = null
+            }
+        }
+
+        if(e.target.name === 'castrated' ){
+            form[e.target.name] = e.target.checked
+            console.log(e.target.name, '=', e.target.checked)
+        }else{
+            form[e.target.name] = e.target.value
+            console.log(e.target.name, '=', e.target.value)
+        }
+        
+        this.setState({form:form})
+        console.log(this.state.form)
+    }
+
     render(){
 
-    this.updatedRender()
+    /* this.updatedRender() */
 
     return(
         <>
-        <form onSubmit={this.postAnimal}>
-            {/* <Row>      
-                <Col md = '12'>
-                    <ImageCropper imageCallback = {this.handleCroppedImage}/>
+        <form onSubmit={this.postAnimal} id = 'animal-form' >
+            <Row>   
+                <Col md = '6' sm = '12' >
+                <FormGroup>
+                    <Label for="animal_type">Tipo de animal:
+                    <Input type="select" name="animal_type" id="animal_type" 
+                    onChange={this.handleChange}>
+                        <option hidden selected value> -- selecione uma opção -- </option>
+                        <option value = 'D'>Cachorro</option>
+                        <option value = 'C'>Gato</option>
+                        <option value = 'H'>Cavalo</option>
+                        <option value = 'O'>Outro</option>
+                    </Input>
+                    </Label>
+                </FormGroup>
                 </Col>
-            </Row> */}
-            <ImageCropper imageCallback = {this.handleCroppedImage}/>
 
-            <button type = 'submit' >Enviar</button>
-            {/* <Row>
-            <Col md = '12'>
-                <button type = 'submit' >Enviar</button>
+                <Col md = '6' sm = '12' >
+                <FormGroup>
+                    <Label for="size">Tamanho:
+                    <Input type="select" name="size" id="size" 
+                    onChange={this.handleChange}>
+                        <option hidden selected value> -- selecione uma opção -- </option>
+                        <option value = 'PP'>Muito pequeno</option>
+                        <option value = 'P'>Pequeno</option>
+                        <option value = 'M'>Médio</option>
+                        <option value = 'G'>Grande</option>
+                        <option value = 'GG'>Muito grande</option>
+                    </Input>
+                    </Label>
+                </FormGroup>
                 </Col>
-            </Row> */}
-        </form>
-        <div>
-            <Row>
-            {this.state.imgs.map((img,index)=>{
-                return(
-                    <>
-                        <Col md = '6' sm = '12' lg = '4' > 
-                        <img className = 'rounded border border-primary'
-                        width = '100%' height = 'auto'
-                        key={index} src = {URL.createObjectURL(img)}/>
-                        </Col>
-                    </>
-                )
-            })}
+
+                <Col md = '6' sm = '12' >
+                <FormGroup>
+                    <Label for="sex">Sexo:
+                    <Input type="select" name="sex" id="sex" 
+                    onChange={this.handleChange}>
+                        <option hidden selected value> -- selecione uma opção -- </option>
+                        <option value = 'M'>Macho</option>
+                        <option value = 'F'>Fêmea</option>
+                    </Input>
+                    </Label>
+                </FormGroup>
+                </Col>
+
+                <Col md = '6' sm = '12' >
+                    <FormGroup  check>
+                        <Label for="castrated" check>
+                        <Input onChange = {this.handleChange}
+                        type="checkbox" name="castrated" id="castrated"/>{' '}
+                        Castrado
+                        </Label>
+                    </FormGroup>
+                </Col>
+
+                <Col md = '6' sm = '12' >
+                    <FormGroup>
+                        <Label for="description">Descrição:
+                        <Input type="textarea" name="description" id="description" />
+                        </Label>
+                    </FormGroup>
+                </Col>
+                
+
+                <Col md = '6' sm = '12' >
+                <Label for="birth_date">Data de nascimento:
+                    <Input type="date" name="birth_date" id="birth_date" 
+                    onChange={this.handleChange}/>
+                    </Label>
+                </Col>
+
+                <Col md = '6' sm = '12' >
+                <FormGroup>
+                    <Label for="location">Localização do animal
+                    <Input type="select" name="location" id="location" 
+                    defaultValue = '' onChange={this.handleChange}>
+                        <option hidden selected value> -- selecione uma opção -- </option>
+                        <option value = 'C'>Canil</option>
+                        <option value = 'V'>Casa de voluntário</option>
+                    </Input>
+                    </Label>
+                </FormGroup>
+                </Col>  
+
+                {this.state.show_volunteers &&
+                    <Col md = '6' sm = '12'>
+                    <FormGroup>
+                        <Label for="responsible_volunteer">Voluntário:
+                        <Input type="select" name="responsible_volunteer" id="responsible_volunteer" 
+                        onChange={this.handleChange}
+                        >
+                            <option hidden selected value> -- selecione uma opção -- </option>
+                            {this.state.volunteers.map((volunteer)=>{
+                                return(
+                                    <option 
+                                        key = {'volunteer id' + String(volunteer.id)}
+                                        value={volunteer.id}>
+                                        {volunteer.first_name} {volunteer.last_name}
+                                    </option>
+                                )
+                            })}
+                        </Input>
+                        </Label>
+                    </FormGroup>
+                    </Col>  
+                }
+
+                {
+                    this.state.show_canil_info &&
+                    <Col md = '6' sm = '12'>
+                    <FormGroup>
+                        <Label for="code">Código do animal:
+                        <Input type="text" name='code' id = 'code'
+                        onChange={this.handleChange}/>
+                        </Label>
+                    </FormGroup>
+                    </Col>  
+                }
+                
             </Row>
-        </div>
+            {/* <ImageCropper imageCallback = {this.handleCroppedImage}/>
+ */}
+        
+            {/* <Row>
+                {this.state.imgs.map((img,index)=>{
+                    return(
+                        <>
+                            <Col md = '5' sm = '5' lg = '5' className ='m-1' key = {index}> 
+                                
+                            <button 
+                            name = {String(index)}
+                            width = '100%' 
+                            type='button'
+                            onClick={this.deleteCroppedImage}
+                            >Excluir</button>
+
+                            <img className = 'rounded border border-primary'
+                            width = '100%' height = 'auto'
+                             src = {URL.createObjectURL(img)}/>
+
+                            </Col>
+                        </>
+                    )
+                })}
+            </Row> */}
+        
+            <button type = 'submit' form = 'animal-form'>Enviar</button>
+        </form>
         </>
     )}
 }

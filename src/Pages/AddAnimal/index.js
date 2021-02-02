@@ -16,6 +16,7 @@ class AddAnimal extends React.Component {
             {/* <PrivateDefaultPage> */}
             {/* </PrivateDefaultPage> */}
             <DefaultPage>
+                {/* <input type = 'file'></input> */}
                 <AnimalForm />
             </DefaultPage>
             </>

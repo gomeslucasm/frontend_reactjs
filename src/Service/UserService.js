@@ -82,8 +82,7 @@ export default class  UserService{
             }}
         ).then((res)=>res.json()).then((res)=>res)
         localStorage.setItem('token', res['access'])
-    }
- 
+    } 
     /* Método que retorna os usuários */
     /* Inputs: 
         user_type - 'staff','veterinary' or 'volunteer'
