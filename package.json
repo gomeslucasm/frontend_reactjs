@@ -16,7 +16,7 @@
     "react-scripts": "4.0.1",
     "reactstrap": "^8.8.1",
     "styled-components": "^5.2.1",
-    "web-vitals": "^0.2.4"
+    "web-vitals": "^0.2.4",
     "react-image-crop": "^8.6.6"
   },
   "scripts": {
