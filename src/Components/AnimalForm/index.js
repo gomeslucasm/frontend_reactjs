@@ -1,7 +1,7 @@
 import React from 'react';
 import UserService from '../../Service/UserService';
 import {Row,Col,Button, FormGroup,Label, Input} from 'reactstrap'
-/* import ImageCropper from '../ImageCropper'; */
+import ImageCropper from '../ImageCropper';
 import axios from 'axios';
 import './index.css'
 
@@ -37,14 +37,12 @@ class AnimalForm extends React.Component {
     }
     
     async componentDidMount() {
-
         const userService = new UserService()
         const volunteers = await userService.get_users('volunteer')
         const users = await userService.get_users()
         this.setState({users:users})
         this.setState({volunteers:volunteers})
         console.log(this.state)
-        
     }
 
 
@@ -261,7 +259,10 @@ class AnimalForm extends React.Component {
                 </Col>
                 
             </Row>
-            {/* <ImageCropper imageCallback = {this.handleCroppedImage}/> */}
+            <div>
+            <ImageCropper imageCallback = {this.handleCroppedImage}/>
+            </div>
+            
         
             <div id = 'div-button'>
                 <Button className = 'btn-info' onClickid = 'center-form-group' 
