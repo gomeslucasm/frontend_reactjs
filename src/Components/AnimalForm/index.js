@@ -259,9 +259,9 @@ class AnimalForm extends React.Component {
                 </Col>
                 
             </Row>
-            <div>
+            {/* <div>
             <ImageCropper imageCallback = {this.handleCroppedImage}/>
-            </div>
+            </div> */}
             
         
             <div id = 'div-button'>
