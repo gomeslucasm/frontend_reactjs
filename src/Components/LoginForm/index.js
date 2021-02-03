@@ -25,7 +25,6 @@ class LoginForm extends React.Component {
     handleChange(e){
         /* Adicionando valor ao state */
         this.setState({[e.target.name]: e.target.value})
-        console.log(e.target.value)
     }
     /* Enviando a requisição de login para a API */
     submitLogin(e){
@@ -69,12 +68,12 @@ class LoginForm extends React.Component {
                 <form onSubmit = {this.submitLogin} id ='login-form'>
                     <Row>   
                         <Col xs ='12' md = '12' className = 'd-flex justify-content-center m-1'>
-                            <TextField type = 'text' autoComplete="off" value = {this.state['username']} 
+                            <TextField type = 'text' autoComplete="off"
                             name = "username" label ='Usuário' 
                             ref = 'login' variant='outlined'/>
                         </Col>
                         <Col xs ='12' md = '12' className = 'd-flex justify-content-center m-1'>
-                            <TextField value = {this.state['password']} name = "password" 
+                            <TextField  name = "password" 
                             label ='Senha' 
                             ref = 'password' variant='outlined' type ='password'/>
                         </Col>
