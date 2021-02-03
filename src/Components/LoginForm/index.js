@@ -31,8 +31,8 @@ class LoginForm extends React.Component {
     submitLogin(e){
         /* Dados para o login */
         const login_data = {
-            'username':this.state.username,
-            'password':this.state.password
+            'username':this.refs.username.value,
+            'password':this.refs.password.value,
         }
         /* Prevenindo o refresh ao fazer o submit */
         e.preventDefault();
@@ -69,12 +69,14 @@ class LoginForm extends React.Component {
                 <form onSubmit = {this.submitLogin} id ='login-form'>
                     <Row>   
                         <Col xs ='12' md = '12' className = 'd-flex justify-content-center m-1'>
-                            <TextField type = 'text' autoComplete="off" value = {this.state['username']} name = "username" label ='Usuário' 
-                            onChange = {this.handleChange} variant='outlined'/>
+                            <TextField type = 'text' autoComplete="off" value = {this.state['username']} 
+                            name = "username" label ='Usuário' 
+                            ref = 'login' variant='outlined'/>
                         </Col>
                         <Col xs ='12' md = '12' className = 'd-flex justify-content-center m-1'>
-                            <TextField value = {this.state['password']} name = "password" label ='Senha' 
-                            onChange = {this.handleChange} variant='outlined' type ='password'/>
+                            <TextField value = {this.state['password']} name = "password" 
+                            label ='Senha' 
+                            ref = 'password' variant='outlined' type ='password'/>
                         </Col>
                         <Col xs ='12' md = '12' className = 'd-flex justify-content-center m-1'>
                             <Button type = 'submit' variant="contained" color="primary" >Login</Button> 
