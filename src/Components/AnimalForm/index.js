@@ -1,7 +1,7 @@
 import React from 'react';
 import UserService from '../../Service/UserService';
 import {Row,Col,Button, FormGroup,Label, Input} from 'reactstrap'
-import ImageCropper from '../ImageCropper';
+/* import ImageCropper from '../ImageCropper'; */
 import axios from 'axios';
 import './index.css'
 

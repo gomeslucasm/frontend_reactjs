@@ -2,8 +2,8 @@ import { /* Row,Col, */ Modal/* , CustomInput,FormGroup,Form */} from 'reactstra
 import React from 'react';
 import ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
-import { Input } from '@material-ui/core';
-
+/* import { Input } from '@material-ui/core';
+ */
 class ImageCropper extends React.Component{
 
     constructor(props){
@@ -27,7 +27,7 @@ class ImageCropper extends React.Component{
         this.setState({modal:!this.state.modal})
         const image = this.state.image
         const crop = this.state.crop
-        const result = this.result
+/*         const result = this.result */
 
         const canvas = document.createElement('canvas');
         const scaleX = image.naturalWidth / image.width;
