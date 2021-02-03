@@ -23,6 +23,11 @@ export default class  UserService{
         const url = `${API_URL}api/token/verify/`;
         /* Obtendo o token armazenado */
         const token = this.get_token();
+
+        if(token === null){
+            return false;
+        }
+
         /* Fazendo a requisição para API */
         var res = await fetch(url,{
             method:'POST',
