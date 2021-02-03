@@ -1,0 +1,44 @@
+    
+   #center-label{
+    text-align: center;
+}
+
+#description-animal-form{
+    display: block;
+}
+
+#div-button{
+    text-align: center;
+    margin: 3vh 0 ;
+}
+
+#btn-animal-form{
+    width: 40%;
+    text-align: center;
+}
+
+@media (min-width: 479px){  
+    /* #center-form-group{
+        display: inline-block;
+        margin-right:2%;
+    }
+    #col-animal-form{
+        display:contents;
+        
+    } */
+    #center-label{
+        display:block;
+    }
+}
+
+@media (max-width: 479px){    
+    #center-form-group{
+        display: table;
+        margin: 0 auto;
+    }
+    
+    #form-castrated{
+        display:grid;
+    }    
+
+}

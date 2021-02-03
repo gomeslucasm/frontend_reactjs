@@ -1,8 +1,9 @@
 import React from 'react';
 import UserService from '../../Service/UserService';
-import {Row,Col/* ,Form */, FormGroup,Label, Input} from 'reactstrap'
+import {Row,Col,Button, FormGroup,Label, Input} from 'reactstrap'
 /* import ImageCropper from '../ImageCropper'; */
 import axios from 'axios';
+import './index.css'
 
 class AnimalForm extends React.Component {
     constructor(props) {
@@ -136,15 +137,13 @@ class AnimalForm extends React.Component {
 
     render(){
 
-    /* this.updatedRender() */
-
     return(
         <>
         <form onSubmit={this.postAnimal} id = 'animal-form' >
             <Row>   
-                <Col md = '6' sm = '12' >
-                <FormGroup>
-                    <Label for="animal_type">Tipo de animal:
+                <Col lg = '3' md = '4' sm = '12' id = 'col-animal-form' >
+                <FormGroup id = 'center-form-group' >
+                    <Label for="animal_type" id = 'center-label'>Tipo de animal:
                     <Input type="select" name="animal_type" id="animal_type" 
                     onChange={this.handleChange}>
                         <option hidden selected value> -- selecione uma opção -- </option>
@@ -157,9 +156,9 @@ class AnimalForm extends React.Component {
                 </FormGroup>
                 </Col>
 
-                <Col md = '6' sm = '12' >
-                <FormGroup>
-                    <Label for="size">Tamanho:
+                <Col lg = '3' md = '4' sm = '12' id = 'col-animal-form'>
+                <FormGroup id = 'center-form-group'>
+                    <Label for="size" id = 'center-label'>Tamanho:
                     <Input type="select" name="size" id="size" 
                     onChange={this.handleChange}>
                         <option hidden selected value> -- selecione uma opção -- </option>
@@ -173,9 +172,9 @@ class AnimalForm extends React.Component {
                 </FormGroup>
                 </Col>
 
-                <Col md = '6' sm = '12' >
-                <FormGroup>
-                    <Label for="sex">Sexo:
+                <Col lg = '3' md = '4' sm = '12' id = 'col-animal-form'>
+                <FormGroup id = 'center-form-group'>
+                    <Label for="sex" id = 'center-label'>Sexo:
                     <Input type="select" name="sex" id="sex" 
                     onChange={this.handleChange}>
                         <option hidden selected value> -- selecione uma opção -- </option>
@@ -186,9 +185,9 @@ class AnimalForm extends React.Component {
                 </FormGroup>
                 </Col>
 
-                <Col md = '6' sm = '12' >
-                    <FormGroup  check>
-                        <Label for="castrated" check>
+                <Col lg = '3' md = '4' sm = '12' id = 'col-animal-form'>
+                    <FormGroup className = 'm-2' id = "form-castrated" check>
+                        <Label for="castrated" id = 'center-label' check>
                         <Input onChange = {this.handleChange}
                         type="checkbox" name="castrated" id="castrated"/>{' '}
                         Castrado
@@ -196,25 +195,18 @@ class AnimalForm extends React.Component {
                     </FormGroup>
                 </Col>
 
-                <Col md = '6' sm = '12' >
-                    <FormGroup>
-                        <Label for="description">Descrição:
-                        <Input type="textarea" name="description" id="description" />
-                        </Label>
-                    </FormGroup>
-                </Col>
-                
-
-                <Col md = '6' sm = '12' >
-                <Label for="birth_date">Data de nascimento:
+                <Col lg = '3' md = '4' sm = '12' id = 'col-animal-form'>
+                <FormGroup id = 'center-form-group'>
+                    <Label for="birth_date" id = 'center-label'>Data de nascimento:
                     <Input type="date" name="birth_date" id="birth_date" 
                     onChange={this.handleChange}/>
                     </Label>
+                </FormGroup>
                 </Col>
 
-                <Col md = '6' sm = '12' >
-                <FormGroup>
-                    <Label for="location">Localização do animal
+                <Col lg = '3' md = '4' sm = '12' id = 'col-animal-form'>
+                <FormGroup id = 'center-form-group'>
+                    <Label for="location" id = 'center-label'>Localização do animal
                     <Input type="select" name="location" id="location" 
                     defaultValue = '' onChange={this.handleChange}>
                         <option hidden selected value> -- selecione uma opção -- </option>
@@ -226,9 +218,9 @@ class AnimalForm extends React.Component {
                 </Col>  
 
                 {this.state.show_volunteers &&
-                    <Col md = '6' sm = '12'>
-                    <FormGroup>
-                        <Label for="responsible_volunteer">Voluntário:
+                    <Col lg = '3' md = '4' sm = '12' id = 'col-animal-form'>
+                    <FormGroup id = 'center-form-group'>
+                        <Label for="responsible_volunteer" id = 'center-label'>Voluntário:
                         <Input type="select" name="responsible_volunteer" id="responsible_volunteer" 
                         onChange={this.handleChange}
                         >
@@ -250,44 +242,36 @@ class AnimalForm extends React.Component {
 
                 {
                     this.state.show_canil_info &&
-                    <Col md = '6' sm = '12'>
-                    <FormGroup>
-                        <Label for="code">Código do animal:
+                    <Col lg = '3' md = '4' sm = '12' id = 'col-animal-form' >
+                    <FormGroup id = 'center-form-group'>
+                        <Label for="code" id = 'center-label'>Código do animal:
                         <Input type="text" name='code' id = 'code'
                         onChange={this.handleChange}/>
                         </Label>
                     </FormGroup>
                     </Col>  
                 }
+
+                <Col lg = '12' md = '12' sm = '12' id = 'col-animal-form'>
+                    <FormGroup id = 'center-form-group' >
+                        <Label for="description" id = 'description-animal-form'>Descrição:
+                        <Input type="textarea" name="description" id="description" />
+                        </Label>
+                    </FormGroup>
+                </Col>
                 
             </Row>
-            {/* <ImageCropper imageCallback = {this.handleCroppedImage}/>
- */}
+            {/* <ImageCropper imageCallback = {this.handleCroppedImage}/> */}
         
-            {/* <Row>
-                {this.state.imgs.map((img,index)=>{
-                    return(
-                        <>
-                            <Col md = '5' sm = '5' lg = '5' className ='m-1' key = {index}> 
-                                
-                            <button 
-                            name = {String(index)}
-                            width = '100%' 
-                            type='button'
-                            onClick={this.deleteCroppedImage}
-                            >Excluir</button>
-
-                            <img className = 'rounded border border-primary'
-                            width = '100%' height = 'auto'
-                             src = {URL.createObjectURL(img)}/>
-
-                            </Col>
-                        </>
-                    )
-                })}
-            </Row> */}
-        
-            <button type = 'submit' form = 'animal-form'>Enviar</button>
+            <div id = 'div-button'>
+                <Button className = 'btn-info' onClickid = 'center-form-group' 
+                type = 'submit' form = 'animal-form'
+                id = 'btn-animal-form'
+                >
+                    Cadastrar animal
+                </Button>
+            </div>
+                
         </form>
         </>
     )}
