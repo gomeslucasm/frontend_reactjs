@@ -47,7 +47,8 @@ export default class  UserService{
                 method:'POST',
                 body: JSON.stringify({'token':token}),
                 headers:{
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin':'*'
                 }}
             ).then(response =>{return response})
 
@@ -84,7 +85,8 @@ export default class  UserService{
             method:'POST',
             body: JSON.stringify({'refresh':token}),
             headers:{
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin':'*'
             }}
         ).then((res)=>res.json()).then((res)=>res)
         localStorage.setItem('token', res['access'])
