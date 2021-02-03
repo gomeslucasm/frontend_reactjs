@@ -85,7 +85,7 @@ class Animals extends React.Component{
         return(
             <>
                 <DefaultPage>
-                    <Container margin-top = '10px'>
+                    <Container margin-top = '10px' id = 'container-row-animal'>
                         <Row >
                             {/* Card */}
                                 {/* Rendering animal card */}

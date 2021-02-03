@@ -23,17 +23,20 @@ class AnimalForm extends React.Component {
                 'user':'1',
                 'animal_photo':''
             },
-            imgs:[],
+            imgs:null,
             users:{},
             volunteers:{},
             show_volunteers:null,
             show_canil_info:null,
         }
+
+        
+        /* Funções que usam this */
         this.postAnimal = this.postAnimal.bind(this)
         this.handleCroppedImage = this.handleCroppedImage.bind(this)
         this.updatedRender=this.updatedRender.bind(this)
         this.deleteCroppedImage = this.deleteCroppedImage.bind(this)
-        this.handleChange = this.handleChange.bind(this)
+        this.handleChange = this.handleChange.bind(this)        
     }
     
     async componentDidMount() {
@@ -48,15 +51,20 @@ class AnimalForm extends React.Component {
 
     async postAnimal(e){
         e.preventDefault()
-        const url = 'https://django-backend-canil.azurewebsites.net/api/private/animals/'
+        /* const url = 'https://django-backend-canil.azurewebsites.net/api/private/animals/' */
+        const url = 'http://localhost:8000/api/private/animals/'
         var form = this.state.form
         var imgs = this.state.imgs
         form['animal_photo'] = imgs
         var keys = Object.keys(form);
         var form_key_data = []
 
+        console.log('forms',keys.length)
+
         var form_data = new FormData()
-        for(var i; i<keys.length; i++){
+        for(var i=0; i<keys.length; i++){
+
+            console.log(keys[i])
             var form_key = keys[i] 
                 if(form_key === 'animal_photo'){
                     form_key_data = form[form_key] // eslint-disable-next-line
@@ -72,9 +80,11 @@ class AnimalForm extends React.Component {
                     await form_data.append(form_key, form[form_key])
                 }
             }
+        console.log('form',form_data)
         await axios.post(url,form_data,
             {headers: {
                 'Content-Type': 'multipart/form-data',
+                'Access-Control-Allow-Origin':'*'
              }}
              ).then(response =>{console.log('resultado',response)})
     }
@@ -87,6 +97,7 @@ class AnimalForm extends React.Component {
         var imgs = this.state.imgs
         imgs.push(img)
         this.setState({imgs:imgs})
+        console.log('imagem',this.state.imgs)
     }
 
     updatedRender(){
@@ -121,7 +132,7 @@ class AnimalForm extends React.Component {
             }
         }
 
-        if(e.target.name === 'castrated' ){
+        if(e.target.name === 'castrated' || e.target.name === 'show'){
             form[e.target.name] = e.target.checked
             console.log(e.target.name, '=', e.target.checked)
         }else{
@@ -133,10 +144,12 @@ class AnimalForm extends React.Component {
         console.log(this.state.form)
     }
 
+    
+
     render(){
 
     return(
-        <>
+        <div>
         <form onSubmit={this.postAnimal} id = 'animal-form' >
             <Row>   
                 <Col lg = '3' md = '4' sm = '12' id = 'col-animal-form' >
@@ -183,12 +196,21 @@ class AnimalForm extends React.Component {
                 </FormGroup>
                 </Col>
 
-                <Col lg = '3' md = '4' sm = '12' id = 'col-animal-form'>
+                <Col lg = '3' md = '4' sm = '12' id = 'col-animal-form'
+                    style = {{'justify-content': 'center', 'display': 'flex'}}
+                >
                     <FormGroup className = 'm-2' id = "form-castrated" check>
                         <Label for="castrated" id = 'center-label' check>
                         <Input onChange = {this.handleChange}
                         type="checkbox" name="castrated" id="castrated"/>{' '}
                         Castrado
+                        </Label>
+                    </FormGroup>
+                    <FormGroup className = 'm-2' id = "form-castrated" check>
+                        <Label for="show" id = 'center-label' check>
+                            <Input onChange = {this.handleChange}
+                            type="checkbox" name="show" id="castrated"/>{' '}
+                            Mostrar no site
                         </Label>
                     </FormGroup>
                 </Col>
@@ -257,15 +279,48 @@ class AnimalForm extends React.Component {
                         </Label>
                     </FormGroup>
                 </Col>
-                
             </Row>
-            <div>
+            
             <ImageCropper imageCallback = {this.handleCroppedImage}/>
-            </div>
-            teste2
-        
+
+                {this.state.imgs &&
+                    <><div style = {{
+                        'border-style': 'solid',
+                        'border-radius': '1vh',
+                        'margin': '2vh',
+                    }}>
+                    <Row>
+                        {    this.state.imgs.map((image,index)=>{
+                                console.log(URL.createObjectURL(image))
+                            return(
+                                <> 
+                                        <Col md = '6' lg = '4' sm='12'
+                                            style = {{/* 'margin-left': 'auto',
+                                                'margin-right': 'auto', */
+                                                'display': 'flex',
+                                                'align-self':'start',
+                                                'text-align':'center'
+                                            }}
+                                        >
+                                        <img
+                                        src={URL.createObjectURL(image)} 
+                                        alt = ''
+                                        key = {String(index)}
+                                        id = 'result-img-cropper'
+                                        />
+                                        </Col>
+                                    </>
+                            )
+                            })}
+                        </Row>
+                    </div>
+                    </>
+                }
+                
+            
+
             <div id = 'div-button'>
-                <Button className = 'btn-info' onClickid = 'center-form-group' 
+                <Button color = 'success' onClickid = 'center-form-group' 
                 type = 'submit' form = 'animal-form'
                 id = 'btn-animal-form'
                 >
@@ -274,7 +329,7 @@ class AnimalForm extends React.Component {
             </div>
                 
         </form>
-        </>
+        </div>
     )}
 }
 

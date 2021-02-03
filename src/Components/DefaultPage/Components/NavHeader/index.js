@@ -30,8 +30,8 @@ function  NavHeader(){
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>   
                     <Nav className="mr-auto" navbar>
-                        <Button >Adoção</Button>
-                        <Button >Adoção</Button>
+                        <Button id = 'nav-button'>Adoção</Button>
+                        <Button id = 'nav-button' >Adoção</Button>
                     </Nav>
                 </Collapse>
             </Navbar>

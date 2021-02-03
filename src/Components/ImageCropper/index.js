@@ -1,4 +1,4 @@
-import { /* Row,Col, */ Modal/* , CustomInput,FormGroup,Form */} from 'reactstrap'
+import { Button,/* Row,Col, */ Modal/* , CustomInput,FormGroup,Form */} from 'reactstrap'
 import React from 'react';
 import ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
@@ -8,6 +8,7 @@ class ImageCropper extends React.Component{
 
     constructor(props){
         super(props);
+        /* Variáveis de estado */
         this.state = {
             src:null,
             filename:'',
@@ -16,8 +17,12 @@ class ImageCropper extends React.Component{
             result:null,
             modal:false,
         }
+        /* Funçôes que precisam do this */
         this.getCroppedImg = this.getCroppedImg.bind(this)
         this.handleImage = this.handleImage.bind(this)
+        this.clickInput = this.clickInput.bind(this)
+        /* Refs */
+        this.imageInputRef = React.createRef();
     }
 
 
@@ -48,7 +53,6 @@ class ImageCropper extends React.Component{
           crop.height,
         );
         canvas.toBlob(blob =>{
-            console.log('nome da imagem',this.state.src)
             blob.name = this.state.filename;
             this.props.imageCallback(blob);
         })
@@ -61,24 +65,52 @@ class ImageCropper extends React.Component{
         e.target.value = null;
     }
 
+    clickInput(){
+        /* console.log(this.imageInputRef.current.style.display) */
+        this.imageInputRef.current.click();
+    }
+
     render(){
     return(
         <>
 
-                    <input type = "file"  accept = "image/*" onChange ={this.handleImage} />
- 
+                    <input type = "file"  accept = "image/*" 
+                    ref = {this.imageInputRef } style = {{display:'none'}}
+                    onChange ={this.handleImage} />
+                    <div style = {{'text-align':'center',}}>
+                        <Button 
+                        color="primary"
+                        type = 'button' 
+                        onClick={this.clickInput}
+                        style = {{'width':'40%',}}
+                        > 
+                        Adicionar fotos do animal</Button>
+                     </div>
+                    
                     <Modal isOpen = {this.state.modal}>
-
                     {   this.state.src && 
                         <div>
+                            <div style = {{display:'flex','width':'100%','justify-content':'space-around',}}>
+                                <Button type = 'button' color = 'danger'
+                                onClick={()=>{
+                                    this.setState({modal:!this.state.modal})
+                                }}
+                                style = {{display:'block','width':'50%'}}
+                                >Cancelar</Button>
+                                <Button type = 'button' color = 'info'
+                            onClick={this.getCroppedImg}
+                            style = {{display:'block','width':'50%'}}
+                                >Cortar imagem</Button>
+                            </div>
+                            
+
                             <ReactCrop 
                             onImageLoaded ={image => this.setState({image:image})} 
                             src={this.state.src} 
                             crop={this.state.crop} 
                             onChange={crop => this.setState({crop:crop})} />
-                            <button type = 'button' 
-                            onClick={this.getCroppedImg}>Crop</button>
-                            </div>
+                            
+                        </div>
                             
                     }
                     </Modal>

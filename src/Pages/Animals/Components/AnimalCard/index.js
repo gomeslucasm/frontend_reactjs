@@ -1,12 +1,12 @@
 import React from 'react'
 import {
     Card/* , CardImg */, CardText, CardBody,
-    CardTitle, CardSubtitle, /* Button */
+    CardTitle, CardSubtitle, CardImg, /* Button */
   } from 'reactstrap';
 import { UncontrolledCarousel } from 'reactstrap';
 
 /* const URL = 'https://django-backend-canil.azurewebsites.net/'; */
-const URL = 'http://localhost:8000/'; 
+const URL = 'http://localhost:8000'; 
 
 
 function items(data){
@@ -30,12 +30,17 @@ function items(data){
 function AnimalCard({id,age, animal_photo, description, location, animal_type, size}){
     console.log('teste')
     items(animal_photo)
-    /* console.log(animal_photo) */
+    console.log(animal_photo)
     return(
         <>
             <Card key = {id}>
-                <UncontrolledCarousel autoPlay = {false} items={items(animal_photo)} />
-                {/* <CardImg top widht="100%" src = {photo} alt = "Card img"/> */}
+                {(animal_photo.length === 1) &&
+                    <CardImg top widht="100%" src = {URL + animal_photo[0].photo} alt = "Card img"/>  
+                }
+                {(animal_photo.length > 1) &&
+                    <UncontrolledCarousel autoPlay = {false} items={items(animal_photo)} />
+                }
+                         
                 <CardBody>
                     <CardTitle tag="h6">Tipo: {animal_type}.</CardTitle>
                     <CardSubtitle tag = "h6">Idade: {age}.</CardSubtitle>

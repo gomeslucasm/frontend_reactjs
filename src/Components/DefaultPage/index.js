@@ -16,8 +16,12 @@ const Div = styled.div`
 
 const Div2 = styled.div`
     display:block;
-    max-width: 100%;
-    width:auto;
+    
+    width:100%;
+    @media (max-width: 479px){
+        max-width: 100%;
+        width:auto;
+    }
     margin-top: 3%;
     margin-bottom: 3%;
     margin-left: 3%;
@@ -35,8 +39,8 @@ class DefaultPage extends React.Component{
             <>
                 <Header/>
                 <NavHeader/>
-                <Div>
-                    <Div2>
+                <Div id = 'div-1-default-page'>
+                    <Div2 id = 'div-2-default-page'>
                         {this.props.children}
                     </Div2>
                 </Div>

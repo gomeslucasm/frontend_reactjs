@@ -12,6 +12,18 @@
     margin: 3vh 0 ;
 }
 
+#result-img-cropper{
+    width: 300px;
+    height: 300px;
+    /* margin-right: 2vh; */
+    position: relative;
+    margin:4vh;
+}
+
+#text-img{
+    text-align: center;
+}
+
 #btn-animal-form{
     width: 40%;
     text-align: center;
@@ -40,5 +52,38 @@
     #form-castrated{
         display:grid;
     }    
+    #result-img-cropper{
+        margin:1vh; 
+    }
+}
 
+#animal-form{
+    display:block;
+    width:100%;
+    overflow: hidden;
+}
+
+
+
+
+@media (max-width: 767.98px) { 
+    #result-img-cropper{
+        width:100%;
+        height: auto;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 800.98px) { 
+    #result-img-cropper{
+        width:100%;
+        height: auto;
+    }
+}
+
+
+@media (min-width: 992px){
+    #result-img-cropper{
+        width:100%;
+        height: auto;
+    }
 }

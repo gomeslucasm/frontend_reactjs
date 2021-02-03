@@ -1,7 +1,7 @@
 import axios from 'axios';
-const API_URL = 'https://django-backend-canil.azurewebsites.net/';
-/* const API_URL = 'http://localhost:8000/'; 
- */
+/* const API_URL = 'https://django-backend-canil.azurewebsites.net/'; */
+const API_URL = 'http://localhost:8000/'; 
+
 
 /* Métodos para autenticação, criação e obtenção de usuários */
 export default class  UserService{
@@ -35,7 +35,8 @@ export default class  UserService{
             method:'POST',
             body: JSON.stringify({'token':token}),
             headers:{
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin':'*'
             }}
         ).then(response =>{return response})
         
