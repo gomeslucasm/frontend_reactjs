@@ -5,7 +5,7 @@ import {
   } from 'reactstrap';
 import { UncontrolledCarousel } from 'reactstrap';
 
-const URL = 'http://localhost:8000';
+const URL = 'https://django-backend-canil.azurewebsites.net/';
 
 function items(data){
     var items = [];
