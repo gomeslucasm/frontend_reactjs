@@ -30,8 +30,8 @@ class LoginForm extends React.Component {
     submitLogin(e){
         /* Dados para o login */
         const login_data = {
-            'username':this.refs.username.value,
-            'password':this.refs.password.value,
+            'username':this.state.username,
+            'password':this.state.password
         }
         /* Prevenindo o refresh ao fazer o submit */
         e.preventDefault();
@@ -68,12 +68,12 @@ class LoginForm extends React.Component {
                 <form onSubmit = {this.submitLogin} id ='login-form'>
                     <Row>   
                         <Col xs ='12' md = '12' className = 'd-flex justify-content-center m-1'>
-                            <TextField type = 'text' autoComplete="off"
+                            <TextField type = 'text' autoComplete="off" value = {this.state['username']} 
                             name = "username" label ='Usuário' 
                             ref = 'login' variant='outlined'/>
                         </Col>
                         <Col xs ='12' md = '12' className = 'd-flex justify-content-center m-1'>
-                            <TextField  name = "password" 
+                            <TextField value = {this.state['password']} name = "password" 
                             label ='Senha' 
                             ref = 'password' variant='outlined' type ='password'/>
                         </Col>
