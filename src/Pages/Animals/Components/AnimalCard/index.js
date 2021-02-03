@@ -5,8 +5,8 @@ import {
   } from 'reactstrap';
 import { UncontrolledCarousel } from 'reactstrap';
 
-/* const URL = 'https://django-backend-canil.azurewebsites.net/'; */
-const URL = 'http://localhost:8000'; 
+const URL = 'https://django-backend-canil.azurewebsites.net';
+/* const URL = 'http://localhost:8000';  */
 
 
 function items(data){
@@ -17,9 +17,9 @@ function items(data){
         const id_str = String(id);
         items.push({
             'src':URL + photo,
-            altText: 'Slide ' + id_str,
+            /* altText: 'Slide ' + id_str,
             caption: 'Slide ' + id_str,
-            header: 'Slide 3 Header' + id_str,
+            header: 'Slide 3 Header' + id_str, */
             key: id_str
         })
 
