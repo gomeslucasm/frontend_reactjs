@@ -262,7 +262,7 @@ class AnimalForm extends React.Component {
             <div>
             <ImageCropper imageCallback = {this.handleCroppedImage}/>
             </div>
-            teste
+            teste2
         
             <div id = 'div-button'>
                 <Button className = 'btn-info' onClickid = 'center-form-group' 
