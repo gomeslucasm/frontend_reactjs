@@ -25,6 +25,7 @@ class LoginForm extends React.Component {
     handleChange(e){
         /* Adicionando valor ao state */
         this.setState({[e.target.name]: e.target.value})
+        /* TESTE */
     }
     /* Enviando a requisição de login para a API */
     submitLogin(e){
