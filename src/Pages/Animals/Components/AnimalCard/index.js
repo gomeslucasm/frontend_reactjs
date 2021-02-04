@@ -20,6 +20,8 @@ class AnimalCard extends React.Component {
     items(data){
         var items = [];
         var count = 0;
+        const URL = 'https://django-backend-canil.azurewebsites.net'
+
         console.log('testesao')
         data.forEach(({photo,id})=>{
             count = count+1;
@@ -43,6 +45,8 @@ class AnimalCard extends React.Component {
     render(age, animal_photo, description, 
         location, animal_type, size, is_logged, show, sex, 
         sex_display){
+
+        const URL = 'https://django-backend-canil.azurewebsites.net'
 
         if(this.props.is_logged===false){
         return(
