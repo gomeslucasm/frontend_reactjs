@@ -57,8 +57,8 @@ class Animals extends React.Component{
     }
 
     async componentDidMount(){
-        this.getData()
-        this.isLogged()
+        await this.getData()
+        await this.isLogged()
     }
 
     handleFilterQuery(event) {

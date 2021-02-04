@@ -110,8 +110,11 @@ class AnimalCard extends React.Component {
                         <UncontrolledCarousel autoPlay = {false} 
                         items={this.items(this.props.animal_photo)} />
                     }   
-                    <CardHeader style = {(this.props.sex === 'F') ? {'backgroundColor':'#C8D7F0'} :
-                    {'backgroundColor':'#F5DEF2'}}>{this.props.sex_display}</CardHeader>   
+                    <CardHeader tag = 'h5' 
+                        style = {{backgroundColor:'#ECECEC',}}
+                    >{this.props.animal_type}</CardHeader>
+                    <CardHeader style = {(this.props.sex === 'M') ? {'backgroundColor':'#C8D7F0'} :
+                    {'backgroundColor':'#F5DEF2'}}>{this.props.sex_display}</CardHeader>  
                     <CardBody>
                         <div id = 'wraper-card-animal-info'>
                             <div style = {{
