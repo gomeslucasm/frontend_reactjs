@@ -80,7 +80,7 @@ class AnimalForm extends React.Component {
             }
         console.log('form',form_data)
         const privateService = new apiPrivateService()
-        await privateService(form_data)
+        await privateService.postAnimal(form_data)
     }
 
 
