@@ -150,8 +150,10 @@ class AnimalForm extends React.Component {
                 <FormGroup id = 'center-form-group' >
                     <Label for="animal_type" id = 'center-label'>Tipo de animal:
                     <Input type="select" name="animal_type" id="animal_type" 
-                    onChange={this.handleChange}>
-                        <option hidden selected value> -- selecione uma opção -- </option>
+                    onChange={this.handleChange}
+                    defaultValue = {'default'}
+                    >
+                        <option hidden value = 'default'> -- selecione uma opção -- </option>
                         <option value = 'D'>Cachorro</option>
                         <option value = 'C'>Gato</option>
                         <option value = 'H'>Cavalo</option>
@@ -165,8 +167,10 @@ class AnimalForm extends React.Component {
                 <FormGroup id = 'center-form-group'>
                     <Label for="size" id = 'center-label'>Tamanho:
                     <Input type="select" name="size" id="size" 
-                    onChange={this.handleChange}>
-                        <option hidden selected value> -- selecione uma opção -- </option>
+                    onChange={this.handleChange} 
+                    defaultValue = {'default'}
+                    >
+                        <option hidden value = 'default'> -- selecione uma opção -- </option>
                         <option value = 'PP'>Muito pequeno</option>
                         <option value = 'P'>Pequeno</option>
                         <option value = 'M'>Médio</option>
@@ -181,8 +185,10 @@ class AnimalForm extends React.Component {
                 <FormGroup id = 'center-form-group'>
                     <Label for="sex" id = 'center-label'>Sexo:
                     <Input type="select" name="sex" id="sex" 
-                    onChange={this.handleChange}>
-                        <option hidden selected value> -- selecione uma opção -- </option>
+                    onChange={this.handleChange}
+                    defaultValue = {'default'}
+                    >
+                        <option hidden value = 'default'> -- selecione uma opção -- </option>
                         <option value = 'M'>Macho</option>
                         <option value = 'F'>Fêmea</option>
                     </Input>
@@ -191,7 +197,7 @@ class AnimalForm extends React.Component {
                 </Col>
 
                 <Col lg = '3' md = '4' sm = '12' id = 'col-animal-form'
-                    style = {{'justify-content': 'center', 'display': 'flex'}}
+                    style = {{'justifyContent': 'center', 'display': 'flex'}}
                 >
                     <FormGroup className = 'm-2' id = "form-castrated" check>
                         <Label for="castrated" id = 'center-label' check>
@@ -222,8 +228,10 @@ class AnimalForm extends React.Component {
                 <FormGroup id = 'center-form-group'>
                     <Label for="location" id = 'center-label'>Localização do animal
                     <Input type="select" name="location" id="location" 
-                    defaultValue = '' onChange={this.handleChange}>
-                        <option hidden selected value> -- selecione uma opção -- </option>
+                    onChange={this.handleChange}
+                    defaultValue = {'default'}
+                    >
+                        <option hidden value = 'default'> -- selecione uma opção -- </option>
                         <option value = 'C'>Canil</option>
                         <option value = 'V'>Casa de voluntário</option>
                     </Input>
@@ -235,10 +243,12 @@ class AnimalForm extends React.Component {
                     <Col lg = '3' md = '4' sm = '12' id = 'col-animal-form'>
                     <FormGroup id = 'center-form-group'>
                         <Label for="responsible_volunteer" id = 'center-label'>Voluntário:
-                        <Input type="select" name="responsible_volunteer" id="responsible_volunteer" 
+                        <Input type="select" name="responsible_volunteer" 
+                        id="responsible_volunteer" 
                         onChange={this.handleChange}
+                        defaultValue = {'default'}
                         >
-                            <option hidden selected value> -- selecione uma opção -- </option>
+                        <option hidden value = 'default'> -- selecione uma opção -- </option>
                             {this.state.volunteers.map((volunteer)=>{
                                 return(
                                     <option 
@@ -292,8 +302,8 @@ class AnimalForm extends React.Component {
                                             style = {{/* 'margin-left': 'auto',
                                                 'margin-right': 'auto', */
                                                 'display': 'flex',
-                                                'align-self':'start',
-                                                'text-align':'center'
+                                                'alignSelf':'start',
+                                                'textAlign':'center'
                                             }}
                                         >
                                         <img
@@ -314,7 +324,7 @@ class AnimalForm extends React.Component {
             
 
             <div id = 'div-button'>
-                <Button color = 'success' onClickid = 'center-form-group' 
+                <Button color = 'success'
                 type = 'submit' form = 'animal-form'
                 id = 'btn-animal-form'
                 >

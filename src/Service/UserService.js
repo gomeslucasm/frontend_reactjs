@@ -38,7 +38,7 @@ export default class  UserService{
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin':'*'
             }}
-        ).then(response =>{return response})
+        ).then(response =>response)
         
         /* Se a resposta.ok for true */
         if(res.ok === true){

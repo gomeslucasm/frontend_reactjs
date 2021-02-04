@@ -77,7 +77,7 @@ class ImageCropper extends React.Component{
                     <input type = "file"  accept = "image/*" 
                     ref = {this.imageInputRef } style = {{display:'none'}}
                     onChange ={this.handleImage} />
-                    <div style = {{'text-align':'center',}}>
+                    <div style = {{'textAlign':'center',}}>
                         <Button 
                         color="primary"
                         type = 'button' 
