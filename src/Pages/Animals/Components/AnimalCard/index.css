@@ -1,0 +1,19 @@
+#animal-card-edit-button{
+    width: 35%;
+    text-align: center;
+    margin: 5%;
+}
+
+
+#wraper-card-animal-info{
+    width: 100%;
+    height: 90%;
+    /* background-color:white; */
+    display: flex;
+    justify-content: center;
+}
+
+#animal-card-see-button{
+    width: 50%;
+    
+}

@@ -3,16 +3,18 @@ import {
     Collapse,
     Navbar,
     NavbarToggler,
+    NavLink,
+    NavItem,
 /*     NavbarBrand, */
     Nav,
-/*     NavItem,
+/*     ,
     NavLink,
     UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
     DropdownItem,
     NavbarText, */
-    Button,
+    /* Button, */
   } from 'reactstrap';
 
 import './index.css'
@@ -26,12 +28,17 @@ function  NavHeader(){
     return(
         <div>           
             <Navbar color="dark" light expand="sm" 
-            display = 'flex' >
+            id = 'nav-bar'>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>   
                     <Nav className="mr-auto" navbar>
-                        <Button id = 'nav-button'>Adoção</Button>
-                        <Button id = 'nav-button' >Adoção</Button>
+                        <NavItem>
+                            <NavLink href="/components/">Animais</NavLink>
+                        </NavItem>
+
+                        <NavItem>
+                            <NavLink href="/components/">Doação</NavLink>
+                        </NavItem>
                     </Nav>
                 </Collapse>
             </Navbar>

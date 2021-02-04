@@ -1,56 +1,166 @@
 import React from 'react'
-import {
-    Card/* , CardImg */, CardText, CardBody,
-    CardTitle, CardSubtitle, CardImg, /* Button */
-  } from 'reactstrap';
-import { UncontrolledCarousel } from 'reactstrap';
+import {UncontrolledCarousel,Card,CardText, CardBody,/* CardTitle, CardSubtitle,  */
+    CardImg, Button, CardHeader} from 'reactstrap';
+import apiPrivateService from '../../../../Service/apiPrivateService'
+import './index.css'
+class AnimalCard extends React.Component {
 
-const URL = 'https://django-backend-canil.azurewebsites.net';
-/* const URL = 'http://localhost:8000';  */
+    constructor(props) {
+        super(props);
+        this.deleteAnimal = this.deleteAnimal.bind(this)
+    }
+    
+    async deleteAnimal(){
+        const privateService = new apiPrivateService();
+        await privateService.deleteAnimal(this.props.id)
+        console.log('requisição de delete feita')
+        this.props.deleteCallback()
+    }
 
-
-function items(data){
-    var items = [];
-    var count = 0;
-    data.forEach(({photo,id})=>{
-        count = count+1;
-        const id_str = String(id);
-        items.push({
-            'src':URL + photo,
-            /* altText: 'Slide ' + id_str,
-            caption: 'Slide ' + id_str,
-            header: 'Slide 3 Header' + id_str, */
-            key: id_str
+    items(data){
+        var items = [];
+        var count = 0;
+        console.log('testesao')
+        data.forEach(({photo,id})=>{
+            count = count+1;
+            const id_str = String(id);
+            items.push({
+                'src':URL + photo,
+                altText: '',
+                caption: '',
+                header: '',
+                key: id_str
+            })
+    
         })
+        return items
+    }
 
-    })
-    return items
-}
+    componentDidMount(){
 
-function AnimalCard({id,age, animal_photo, description, location, animal_type, size}){
-    console.log('teste')
-    items(animal_photo)
-    console.log(animal_photo)
-    return(
-        <>
-            <Card key = {id}>
-                {(animal_photo.length === 1) &&
-                    <CardImg top widht="100%" src = {URL + animal_photo[0].photo} alt = "Card img"/>  
-                }
-                {(animal_photo.length > 1) &&
-                    <UncontrolledCarousel autoPlay = {false} items={items(animal_photo)} />
-                }
-                         
-                <CardBody>
-                    <CardTitle tag="h6">Tipo: {animal_type}.</CardTitle>
-                    <CardSubtitle tag = "h6">Idade: {age}.</CardSubtitle>
-                    <CardText>Descrição: {description}.</CardText>
-                    <CardSubtitle tag = "h6">{location}.</CardSubtitle>
-                    <CardSubtitle tag = "h6">{size}.</CardSubtitle>
-                </CardBody>
-            </Card>
-        </>
-    )
+    }
+
+    render(age, animal_photo, description, 
+        location, animal_type, size, is_logged, show, sex, 
+        sex_display){
+
+        if(this.props.is_logged===false){
+        return(
+            <>
+                <Card 
+                    >
+                
+                    {(this.props.animal_photo.length === 1) &&
+                        <CardImg top widht="100%" 
+                        src = {URL + this.props.animal_photo[0].photo} 
+                        alt = "Card img"/>  
+                    }
+                    {(this.props.animal_photo.length > 1) &&
+                        <UncontrolledCarousel autoPlay = {false} 
+                        items={this.items(this.props.animal_photo)} />
+                    }     
+                    <CardHeader tag = 'h5' 
+                        style = {{backgroundColor:'#ECECEC',}}
+                    >{this.props.animal_type}</CardHeader>
+                    <CardHeader style = {(this.props.sex === 'M') ? {'backgroundColor':'#C8D7F0'} :
+                    {'backgroundColor':'#F5DEF2'}}>{this.props.sex_display}</CardHeader>
+                    
+                    <CardBody /* style = {{paddingBottom:'0px',}} */>
+                        <div id = 'wraper-card-animal-info'>
+                            <div style = {{
+                                backgroundColor: 'white',
+                                padding: '10% 10% 10%  10%',
+                                borderRadius: '5%',
+                            }}>
+                                <CardText tag = "h6">Idade: {this.props.age}.</CardText>
+                                <CardText tag = "h6">Sexo: {this.props.sex_display}.</CardText>
+                                <CardText tag = "h6">Descrição: {this.props.escription}.</CardText>
+                                <CardText tag = "h6">Posse: {this.props.location}.</CardText>
+                                <CardText tag = "h6">Tamanho: {this.props.size}.</CardText>
+                            </div>
+                        </div>
+                        
+                    </CardBody>
+                    <div style = {{
+                        display:'flex',justifyContent: 'center',marginBottom:'1.25rem'
+                        }}>
+                        <Button
+                                color = 'success'
+                                id = 'animal-card-see-button'>
+                                    Ver animal
+                        </Button>
+                    </div>
+                </Card>
+            </>
+        )
+    }else{
+        return(
+            <>
+                <Card >
+                    {(this.props.animal_photo.length === 1) &&
+                        <CardImg top widht="100%"
+                         src = {URL + this.props.animal_photo[0].photo} 
+                         alt = "Card img"/>  
+                    }
+                    {(this.props.animal_photo.length > 1) &&
+                        <UncontrolledCarousel autoPlay = {false} 
+                        items={this.items(this.props.animal_photo)} />
+                    }   
+                    <CardHeader style = {(this.props.sex === 'F') ? {'backgroundColor':'#C8D7F0'} :
+                    {'backgroundColor':'#F5DEF2'}}>{this.props.sex_display}</CardHeader>   
+                    <CardBody>
+                        <div id = 'wraper-card-animal-info'>
+                            <div style = {{
+                                backgroundColor: 'white',
+                                padding: '10%',
+                                borderRadius: '5%',
+                            }}>
+                                <CardHeader>Header</CardHeader>
+                                <CardText tag="h6">Tipo: {this.props.animal_type}.</CardText>
+                                <CardText tag = "h6">Idade: {this.props.age}.</CardText>
+                                <CardText tag = "h6">Sexo: {this.props.sex_display}.</CardText>
+                                <CardText tag = "h6">Descrição: {this.props.escription}.</CardText>
+                                <CardText tag = "h6">Posse: {this.props.location}.</CardText>
+                                <CardText tag = "h6">Tamanho: {this.props.size}.</CardText>
+                            </div>
+                        </div>
+                    </CardBody>
+                    <div>
+                    <div style = {{display:'flex','justifyContent':'space-between'}}>
+                        <Button outline
+                         color = 'danger'
+                        onClick={this.deleteAnimal} 
+                        id = 'animal-card-edit-button'>
+                            Excluir
+                        </Button>
+                        {
+                            !this.props.show &&
+                            <Button outline
+                            color = 'primary'
+                            id = 'animal-card-edit-button'>
+                                Mostrar
+                            </Button>
+                        }
+                        {
+                            this.props.show &&
+                            <Button outline
+                            color = 'primary'
+                            id = 'animal-card-edit-button'>
+                                Ocultar
+                            </Button>
+                        }
+                            <Button outline
+                            color = 'warning'
+                            id = 'animal-card-edit-button'>
+                                Editar
+                            </Button>
+                    </div>
+                    </div>
+                </Card>
+            </>
+        )
+    }
+    }
 } 
 
 

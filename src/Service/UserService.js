@@ -1,7 +1,7 @@
 import axios from 'axios';
 const API_URL = 'https://django-backend-canil.azurewebsites.net/';
-/* const API_URL = 'http://localhost:8000/';  */
-
+/* const API_URL = 'http://localhost:8000/'; 
+ */
 
 /* Métodos para autenticação, criação e obtenção de usuários */
 export default class  UserService{
@@ -24,7 +24,7 @@ export default class  UserService{
         /* URL da api para verificar a validade do token */
         const url = `${API_URL}api/token/verify/`;
         /* Obtendo o token armazenado */
-        const token = this.get_token();
+        var token = this.get_token();
 
         if(token === null){
             return false;
@@ -46,6 +46,7 @@ export default class  UserService{
                 return true
         }else{
             await this.refresh_token();
+            token = this.get_token();
             res = await fetch(url,{
                 method:'POST',
                 body: JSON.stringify({'token':token}),

@@ -2,8 +2,8 @@ import React from 'react';
 import UserService from '../../Service/UserService';
 import {Row,Col,Button, FormGroup,Label, Input} from 'reactstrap'
 import ImageCropper from '../ImageCropper';
-import axios from 'axios';
 import './index.css'
+import apiPrivateService from '../../Service/apiPrivateService';
 
 class AnimalForm extends React.Component {
     constructor(props) {
@@ -51,8 +51,6 @@ class AnimalForm extends React.Component {
 
     async postAnimal(e){
         e.preventDefault()
-        const url = 'https://django-backend-canil.azurewebsites.net/api/private/animals/'
-        /* const url = 'http://localhost:8000/api/private/animals/' */
         var form = this.state.form
         var imgs = this.state.imgs
         form['animal_photo'] = imgs
@@ -81,12 +79,8 @@ class AnimalForm extends React.Component {
                 }
             }
         console.log('form',form_data)
-        await axios.post(url,form_data,
-            {headers: {
-                'Content-Type': 'multipart/form-data',
-                'Access-Control-Allow-Origin':'*'
-             }}
-             ).then(response =>{console.log('resultado',response)})
+        const privateService = new apiPrivateService()
+        await privateService(form_data)
     }
 
 

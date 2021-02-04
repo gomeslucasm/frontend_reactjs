@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_URL = 'https://django-backend-canil.azurewebsites.net';
+const API_URL = 'https://django-backend-canil.azurewebsites.net/';
 /* const API_URL = 'http://localhost:8000';  */
 
 
@@ -9,9 +9,9 @@ class apiPublicService{
     async getAnimals(url_query = '?'){
         var url = ''
         if(url_query.length>1){
-            url = `${API_URL}/api/public/animals/?${url_query}`;
+            url = `${API_URL}api/public/animals/?${url_query}`;
         }else{
-            url = `${API_URL}/api/public/animals/`;
+            url = `${API_URL}api/public/animals/`;
         }
         
         const response = await axios.get(url);
