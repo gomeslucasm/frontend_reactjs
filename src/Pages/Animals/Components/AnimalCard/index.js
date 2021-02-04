@@ -70,19 +70,19 @@ class AnimalCard extends React.Component {
                     {'backgroundColor':'#F5DEF2'}}>{this.props.sex_display}</CardHeader>
                     
                     <CardBody /* style = {{paddingBottom:'0px',}} */>
-                        <div id = 'wraper-card-animal-info'>
+                        {/* <div id = 'wraper-card-animal-info'>
                             <div style = {{
                                 backgroundColor: 'white',
                                 padding: '10% 10% 10%  10%',
                                 borderRadius: '5%',
-                            }}>
+                            }}> */}
                                 <CardText tag = "h6">Idade: {this.props.age}.</CardText>
                                 <CardText tag = "h6">Sexo: {this.props.sex_display}.</CardText>
                                 <CardText tag = "h6">Descrição: {this.props.escription}.</CardText>
                                 <CardText tag = "h6">Posse: {this.props.location}.</CardText>
                                 <CardText tag = "h6">Tamanho: {this.props.size}.</CardText>
-                            </div>
-                        </div>
+                            {/* </div>
+                        </div> */}
                         
                     </CardBody>
                     <div style = {{
@@ -116,12 +116,12 @@ class AnimalCard extends React.Component {
                     <CardHeader style = {(this.props.sex === 'M') ? {'backgroundColor':'#C8D7F0'} :
                     {'backgroundColor':'#F5DEF2'}}>{this.props.sex_display}</CardHeader>  
                     <CardBody>
-                        <div id = 'wraper-card-animal-info'>
+                        {/* <div id = 'wraper-card-animal-info'>
                             <div style = {{
                                 backgroundColor: 'white',
                                 padding: '10%',
                                 borderRadius: '5%',
-                            }}>
+                            }}> */}
                                 <CardHeader>Header</CardHeader>
                                 <CardText tag="h6">Tipo: {this.props.animal_type}.</CardText>
                                 <CardText tag = "h6">Idade: {this.props.age}.</CardText>
@@ -129,8 +129,8 @@ class AnimalCard extends React.Component {
                                 <CardText tag = "h6">Descrição: {this.props.escription}.</CardText>
                                 <CardText tag = "h6">Posse: {this.props.location}.</CardText>
                                 <CardText tag = "h6">Tamanho: {this.props.size}.</CardText>
-                            </div>
-                        </div>
+                        {/*     </div>
+                        </div> */}
                     </CardBody>
                     <div>
                     <div style = {{display:'flex','justifyContent':'space-between'}}>
