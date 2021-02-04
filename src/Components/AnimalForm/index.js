@@ -203,7 +203,7 @@ class AnimalForm extends React.Component {
                     <FormGroup className = 'm-2' id = "form-castrated" check>
                         <Label for="show" id = 'center-label' check>
                             <Input onChange = {this.handleChange}
-                            type="checkbox" name="show" id="castrated"/>{' '}
+                            type="checkbox" name="show" id="show"/>{' '}
                             Mostrar no site
                         </Label>
                     </FormGroup>
