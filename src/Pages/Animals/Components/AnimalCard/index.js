@@ -122,7 +122,6 @@ class AnimalCard extends React.Component {
                                 padding: '10%',
                                 borderRadius: '5%',
                             }}> */}
-                                <CardHeader>Header</CardHeader>
                                 <CardText tag="h6">Tipo: {this.props.animal_type}.</CardText>
                                 <CardText tag = "h6">Idade: {this.props.age}.</CardText>
                                 <CardText tag = "h6">Sexo: {this.props.sex_display}.</CardText>
