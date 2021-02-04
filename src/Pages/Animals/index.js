@@ -110,7 +110,7 @@ class Animals extends React.Component{
                                     ({id,animal_type,age,animal_photo,size,
                                         location,description,show,sex,sex_display}) => (
                                     <Col key= {String(id)}
-                                    className="pt-3" lg = '3'md = '4' sm = '6' xs = '12' id = 'col_animal'>
+                                    className="pt-3" lg = '4' md = '6' sm = '12' xs = '12' id = 'col_animal'>
                                         <AnimalCard 
                                             key = {id}
                                             animal_photo = {animal_photo}
