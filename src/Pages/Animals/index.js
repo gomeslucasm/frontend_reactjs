@@ -7,7 +7,7 @@ import './index.css'
 /* import FilterMenu from './Components/FilterMenu'; */
 import { /* Button */ /* Form, FormGroup, Label, Input */ } from 'reactstrap';
 import UserService from '../../Service/UserService';
-
+import Loader from '../../Components/Loader'
 
 class Animals extends React.Component{
     
@@ -29,6 +29,7 @@ class Animals extends React.Component{
                 }
             },
             is_logged:false,
+            display:false,
         }
         this.handleFilterQuery = this.handleFilterQuery.bind(this);
         this.getFilteredData = this.getFilteredData.bind(this);
@@ -59,6 +60,7 @@ class Animals extends React.Component{
     async componentDidMount(){
         await this.getData()
         await this.isLogged()
+        this.setState({display:true})
     }
 
     handleFilterQuery(event) {
@@ -99,42 +101,51 @@ class Animals extends React.Component{
     }
 
     render(){
-        return(
-            <>
+        if(this.state.display){
+            return(
+                <>
+                    <DefaultPage>
+                        <Container margin-top = '10px' id = 'container-row-animal'>
+                            <Row >
+                                {/* Card */}
+                                    {/* Rendering animal card */}
+                                    {this.state.data.map(
+                                        ({id,animal_type,age,animal_photo,size,
+                                            location,description,show,sex,sex_display}) => (
+                                        <Col key= {String(id)}
+                                        className="pt-3" lg = '4' md = '6' sm = '12' xs = '12' id = 'col_animal'>
+                                            <AnimalCard 
+                                                key = {id}
+                                                animal_photo = {animal_photo}
+                                                animal_type = {animal_type}
+                                                age = {age}
+                                                size = {size}
+                                                location = {location}
+                                                description = {description} 
+                                                show = {show}
+                                                sex = {sex}
+                                                sex_display = {sex_display}
+                                                is_logged = {this.state.is_logged}
+                                                id = {id}
+                                                deleteCallback = {()=>{this.getData()}}
+                                                />
+                                        </Col>   
+                                        
+                                        ))}
+                                
+                            </Row>
+                        </Container>
+                    </DefaultPage>
+                </>
+            )
+        }else{
+            return(
                 <DefaultPage>
-                    <Container margin-top = '10px' id = 'container-row-animal'>
-                        <Row >
-                            {/* Card */}
-                                {/* Rendering animal card */}
-                                {this.state.data.map(
-                                    ({id,animal_type,age,animal_photo,size,
-                                        location,description,show,sex,sex_display}) => (
-                                    <Col key= {String(id)}
-                                    className="pt-3" lg = '4' md = '6' sm = '12' xs = '12' id = 'col_animal'>
-                                        <AnimalCard 
-                                            key = {id}
-                                            animal_photo = {animal_photo}
-                                            animal_type = {animal_type}
-                                            age = {age}
-                                            size = {size}
-                                            location = {location}
-                                            description = {description} 
-                                            show = {show}
-                                            sex = {sex}
-                                            sex_display = {sex_display}
-                                            is_logged = {this.state.is_logged}
-                                            id = {id}
-                                            deleteCallback = {()=>{this.getData()}}
-                                            />
-                                    </Col>   
-                                    
-                                    ))}
-                            
-                        </Row>
-                    </Container>
+                    <Loader display = {!this.state.display}/>
                 </DefaultPage>
-            </>
-        )
+            )
+        }
+        
     }
 }
 

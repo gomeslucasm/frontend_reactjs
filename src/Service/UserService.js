@@ -1,7 +1,6 @@
 import axios from 'axios';
-const API_URL = 'https://django-backend-canil.azurewebsites.net/';
-/* const API_URL = 'http://localhost:8000/'; 
- */
+import API_URL from '../global'
+
 
 /* Métodos para autenticação, criação e obtenção de usuários */
 export default class  UserService{
@@ -12,7 +11,7 @@ export default class  UserService{
     }
     /* Função que armazena faz o GET do token */
     async login(data){
-        const url = `${API_URL}api/token/`;
+        const url = `${API_URL}/api/token/`;
         return await axios.post(url,data,{
             headers:{
                 'Content-Type': 'application/json',
@@ -22,7 +21,7 @@ export default class  UserService{
     /* Método que testa se o usuário está logado */
     async is_logged(){
         /* URL da api para verificar a validade do token */
-        const url = `${API_URL}api/token/verify/`;
+        const url = `${API_URL}/api/token/verify/`;
         /* Obtendo o token armazenado */
         var token = this.get_token();
 
@@ -82,7 +81,7 @@ export default class  UserService{
     /* Método que atualiza o token */
     async refresh_token(){
         /* URL da api para atualizar o token */
-        const url = `${API_URL}api/token/refresh/`;
+        const url = `${API_URL}/api/token/refresh/`;
         /* Obtendo o token refresh armazenado */
         const token = this.get_refresh_token();
         const res = await fetch(url,{
@@ -102,7 +101,7 @@ export default class  UserService{
     async get_users(user_type = 'none'){
 
         if(user_type === 'none'){
-            const url = `${API_URL}api/users/`
+            const url = `${API_URL}/api/users/`
             const response = await axios.get(url)
             return response.data
         }else{

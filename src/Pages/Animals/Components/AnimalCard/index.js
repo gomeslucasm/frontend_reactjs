@@ -2,7 +2,8 @@ import React from 'react'
 import {UncontrolledCarousel,Card,CardText, CardBody,/* CardTitle, CardSubtitle,  */
     CardImg, Button, CardHeader} from 'reactstrap';
 import apiPrivateService from '../../../../Service/apiPrivateService'
-import './index.css'
+import './index.css';
+import API_URL from '../../../../global'
 class AnimalCard extends React.Component {
 
     constructor(props) {
@@ -20,14 +21,14 @@ class AnimalCard extends React.Component {
     items(data){
         var items = [];
         var count = 0;
-        const URL = 'https://django-backend-canil.azurewebsites.net'
+
 
         console.log('testesao')
         data.forEach(({photo,id})=>{
             count = count+1;
             const id_str = String(id);
             items.push({
-                'src':URL + photo,
+                'src':API_URL + photo,
                 altText: '',
                 caption: '',
                 header: '',
@@ -42,48 +43,38 @@ class AnimalCard extends React.Component {
 
     }
 
-    render(age, animal_photo, description, 
-        location, animal_type, size, is_logged, show, sex, 
-        sex_display){
+    render(){
 
-        const URL = 'https://django-backend-canil.azurewebsites.net'
 
         if(this.props.is_logged===false){
         return(
             <>
                 <Card 
                     >
-                
+                    {/* Caso tenha só uma foto */}
                     {(this.props.animal_photo.length === 1) &&
                         <CardImg top widht="100%" 
-                        src = {URL + this.props.animal_photo[0].photo} 
+                        src = {API_URL + this.props.animal_photo[0].photo} 
                         alt = "Card img"/>  
                     }
+                    {/* Caso tenha mais de uma foto cria um carousel */}
                     {(this.props.animal_photo.length > 1) &&
                         <UncontrolledCarousel autoPlay = {false} 
                         items={this.items(this.props.animal_photo)} />
                     }     
+                    {/* informações */}
                     <CardHeader tag = 'h5' 
                         style = {{backgroundColor:'#ECECEC',}}
                     >{this.props.animal_type}</CardHeader>
                     <CardHeader style = {(this.props.sex === 'M') ? {'backgroundColor':'#C8D7F0'} :
                     {'backgroundColor':'#F5DEF2'}}>{this.props.sex_display}</CardHeader>
                     
-                    <CardBody /* style = {{paddingBottom:'0px',}} */>
-                        {/* <div id = 'wraper-card-animal-info'>
-                            <div style = {{
-                                backgroundColor: 'white',
-                                padding: '10% 10% 10%  10%',
-                                borderRadius: '5%',
-                            }}> */}
-                                <CardText tag = "h6">Idade: {this.props.age}.</CardText>
-                                <CardText tag = "h6">Sexo: {this.props.sex_display}.</CardText>
-                                <CardText tag = "h6">Descrição: {this.props.escription}.</CardText>
-                                <CardText tag = "h6">Posse: {this.props.location}.</CardText>
-                                <CardText tag = "h6">Tamanho: {this.props.size}.</CardText>
-                            {/* </div>
-                        </div> */}
-                        
+                    <CardBody>
+                        <CardText tag = "h6">Tamanho: {this.props.size}</CardText>    
+                        <CardText tag = "h6">Idade: {this.props.age}</CardText>
+{/*                         <CardText tag = "h6">Descrição: {this.props.escription}.</CardText> */}
+                        <CardText tag = "h6">Posse: {this.props.location}</CardText>
+  
                     </CardBody>
                     <div style = {{
                         display:'flex',justifyContent: 'center',marginBottom:'1.25rem'
@@ -103,7 +94,7 @@ class AnimalCard extends React.Component {
                 <Card >
                     {(this.props.animal_photo.length === 1) &&
                         <CardImg top widht="100%"
-                         src = {URL + this.props.animal_photo[0].photo} 
+                         src = {API_URL + this.props.animal_photo[0].photo} 
                          alt = "Card img"/>  
                     }
                     {(this.props.animal_photo.length > 1) &&
@@ -122,12 +113,11 @@ class AnimalCard extends React.Component {
                                 padding: '10%',
                                 borderRadius: '5%',
                             }}> */}
-                                <CardText tag="h6">Tipo: {this.props.animal_type}.</CardText>
-                                <CardText tag = "h6">Idade: {this.props.age}.</CardText>
-                                <CardText tag = "h6">Sexo: {this.props.sex_display}.</CardText>
-                                <CardText tag = "h6">Descrição: {this.props.escription}.</CardText>
-                                <CardText tag = "h6">Posse: {this.props.location}.</CardText>
-                                <CardText tag = "h6">Tamanho: {this.props.size}.</CardText>
+                                <CardText tag = "h6">Porte: {this.props.size}</CardText>
+                                <CardText tag = "h6">Idade: {this.props.age}</CardText>
+{/*                                 <CardText tag = "h6">Descrição: {this.props.escription}.</CardText> */}
+                                <CardText tag = "h6">Posse: {this.props.location}</CardText>
+
                         {/*     </div>
                         </div> */}
                     </CardBody>

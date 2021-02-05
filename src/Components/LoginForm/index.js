@@ -2,7 +2,7 @@ import React from 'react';
 import UserService from '../../Service/UserService';
 import {TextField, Button} from '@material-ui/core';
 import {Row,Col/* ,Form */} from 'reactstrap'
-
+import Loader from '../../Components/Loader'
 
 
 class LoginForm extends React.Component {
@@ -14,7 +14,8 @@ class LoginForm extends React.Component {
         this.state = {
             username:'',
             password:'',
-            login_error: 'none'
+            login_error: false,
+            display_form:true
               }
         /* Funções que usam o this */
         this.handleChange = this.handleChange.bind(this);
@@ -27,8 +28,10 @@ class LoginForm extends React.Component {
         this.setState({[e.target.name]: e.target.value})
     }
     /* Enviando a requisição de login para a API */
-    submitLogin(e){
+    async submitLogin(e){
         /* Dados para o login */
+        this.setState({display_form:false})
+        this.setState({login_error:false})
         const login_data = {
             'username':this.state.username,
             'password':this.state.password
@@ -38,7 +41,7 @@ class LoginForm extends React.Component {
         /* Objeto dos métodos para fazer as requisições de usuários da API */
         const userService = new UserService()
         /* Enviando a requisição */
-        userService.login(JSON.stringify(login_data)
+        await userService.login(JSON.stringify(login_data)
         ).then(response => {
             if(response.ok ){
             } else {
@@ -54,18 +57,23 @@ class LoginForm extends React.Component {
             var logged = false;
             this.props.loggedCallback(logged) 
             console.log(error)
-            this.setState({login_error:'block'})
+            this.setState({login_error:false})
+            this.setState({display_form:true})
             console.log(this.state)
             this.setState({'password':'','username':''})
         });
-       
+        
     }
 
     render(){
         return(
         <>
             <div background-color = 'blue'>
-                <form onSubmit = {this.submitLogin} id ='login-form'>
+                <form onSubmit = {this.submitLogin} id ='login-form'
+                    style = {
+                       this.state.display_form ? {display:'block'} : {display:'none'}
+                    }
+                >
                     <Row>   
                         <Col xs ='12' md = '12' className = 'd-flex justify-content-center m-1'>
                             <TextField type = 'text' autoComplete="off" value = {this.state['username']} name = "username" label ='Usuário' 
@@ -82,9 +90,14 @@ class LoginForm extends React.Component {
                 </form>
                     <Row>
                         <Col xs ='12' md = '12' className = 'd-flex justify-content-center m-1'>
-                            <p style = {{display: this.state.login_error}}>Senha ou login errados, tente novamente.</p>
+                            <p 
+                            style = {
+                                this.state.login_error ? {display:'block'} : {display:'none'}
+                            }
+                            >Senha ou login errados, tente novamente.</p>
                         </Col>
                     </Row>
+                    <Loader display = {!this.state.display_form}/>
             </div>
         </>
         )
