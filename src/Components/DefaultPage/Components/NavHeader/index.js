@@ -49,12 +49,12 @@ function  NavHeader(){
                         </NavItem>
                         <NavItem>
                             {!isLogged &&
-                                <NavLink type = 'button' onClick={modal_toggle}
+                                <NavLink onClick={modal_toggle}
                                 >Login
                                 </NavLink>
                             }
                             {isLogged &&
-                                <NavLink type = 'button' 
+                                <NavLink 
                                 onClick={async ()=>{
                                     await userService.logout();
                                     setIsLogged(false)
