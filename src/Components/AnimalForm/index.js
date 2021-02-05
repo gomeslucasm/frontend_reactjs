@@ -29,7 +29,9 @@ class AnimalForm extends React.Component {
             volunteers:{},
             show_volunteers:null,
             show_canil_info:null,
-            show_form:true
+            show_form:true,
+            show_loader:false,
+            sucess: false,
         }
 
         
@@ -38,7 +40,8 @@ class AnimalForm extends React.Component {
         this.handleCroppedImage = this.handleCroppedImage.bind(this)
         this.updatedRender=this.updatedRender.bind(this)
         this.deleteCroppedImage = this.deleteCroppedImage.bind(this)
-        this.handleChange = this.handleChange.bind(this)        
+        this.handleChange = this.handleChange.bind(this)       
+        this.newPost = this.newPost.bind(this)
     }
     
     async componentDidMount() {
@@ -54,6 +57,7 @@ class AnimalForm extends React.Component {
     async postAnimal(e){
         e.preventDefault()
         this.setState({show_form:false})
+        this.setState({show_loader:true})
         var form = this.state.form
         var imgs = this.state.imgs
         form['animal_photo'] = imgs
@@ -83,9 +87,23 @@ class AnimalForm extends React.Component {
             }
         console.log('form',form_data)
         const privateService = new apiPrivateService()
-        await privateService.postAnimal(form_data)
+        const response = await privateService.postAnimal(form_data)
+        if(response.status === 201){
+            this.setState({show_loader:false})
+            this.setState({success:true})
+        }   
     }
 
+    newPost(){
+        this.setState({show_form:true})
+        this.setState({success:false})
+        var newForm = this.state.form 
+        newForm = newForm.fromKeys(newForm,'')
+        this.setState({form:newForm})
+        this.setState({imgs:null})
+        this.setState({show_volunteers:null})
+        this.setState({show_canil_info:null})
+    }
 
     async handleCroppedImage(img){
         if(this.state.imgs === null){
@@ -342,17 +360,29 @@ class AnimalForm extends React.Component {
             </div>
                 
         </form>
-        <div
-                    style = {this.state.show_form ?
-                        {display: 'none',justifyContent:'center',} :
-                        {display: 'flex',justifyContent:'center'}
-                    }
-                    >
-                        <p>Registrando animal</p>
-                        <Loader 
-                        display = {!this.state.show_form}
-                        />
-                    </div>
+            <div
+            style = {!this.state.show_loader ?
+                {display: 'none',justifyContent:'center',} :
+                {display: 'grid',justifyContent:'center'}
+            }
+            >
+                <p>Registrando animal</p>
+                <Loader 
+                display = {!this.state.show_form}
+                />
+            </div>
+            <div
+                style = {!this.state.success ?
+                    {display: 'none',justifyContent:'center',} :
+                    {display: 'grid',justifyContent:'center'}
+                }
+            >
+                <p>Animal criado com sucesso</p>
+                <Button
+                onClick={this.newPost}
+                >Registrar outro animal</Button>
+                
+            </div>
         </div>
     )}
 }

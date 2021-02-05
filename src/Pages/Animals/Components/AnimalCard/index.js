@@ -68,15 +68,15 @@ class AnimalCard extends React.Component {
                     {/* informações */}
                     <CardHeader tag = 'h5' 
                         style = {{backgroundColor:'#ECECEC',}}
-                    >{this.props.animal_type}</CardHeader>
+                    >{this.props.animal_type_display}</CardHeader>
                     <CardHeader style = {(this.props.sex === 'M') ? {'backgroundColor':'#C8D7F0'} :
                     {'backgroundColor':'#F5DEF2'}}>{this.props.sex_display}</CardHeader>
                     
                     <CardBody>
-                        <CardText tag = "h6">Tamanho: {this.props.size}</CardText>    
+                        <CardText tag = "h6">Tamanho: {this.props.size_display}</CardText>    
                         <CardText tag = "h6">Idade: {this.props.age}</CardText>
 {/*                         <CardText tag = "h6">Descrição: {this.props.escription}.</CardText> */}
-                        <CardText tag = "h6">Posse: {this.props.location}</CardText>
+                        <CardText tag = "h6">Posse: {this.props.location_display}</CardText>
   
                     </CardBody>
                     <div style = {{
@@ -107,7 +107,8 @@ class AnimalCard extends React.Component {
                     }   
                     <CardHeader tag = 'h5' 
                         style = {{backgroundColor:'#ECECEC',}}
-                    >{this.props.animal_type}</CardHeader>
+                    >{this.props.animal_type_display}
+                    </CardHeader>
                     <CardHeader style = {(this.props.sex === 'M') ? {'backgroundColor':'#C8D7F0'} :
                     {'backgroundColor':'#F5DEF2'}}>{this.props.sex_display}</CardHeader>  
                     <CardBody>
@@ -117,10 +118,10 @@ class AnimalCard extends React.Component {
                                 padding: '10%',
                                 borderRadius: '5%',
                             }}> */}
-                                <CardText tag = "h6">Porte: {this.props.size}</CardText>
+                                <CardText tag = "h6">Porte: {this.props.size_display}</CardText>
                                 <CardText tag = "h6">Idade: {this.props.age}</CardText>
 {/*                                 <CardText tag = "h6">Descrição: {this.props.escription}.</CardText> */}
-                                <CardText tag = "h6">Posse: {this.props.location}</CardText>
+                                <CardText tag = "h6">Posse: {this.props.location_display}</CardText>
 
                         {/*     </div>
                         </div> */}

@@ -22,7 +22,7 @@ class apiPrivateService{
                 'Content-Type': 'multipart/form-data',
                 'Access-Control-Allow-Origin':'*'
              }}
-             ).then(response =>{console.log('resultado',response)})
+             )
         return response
     }
 

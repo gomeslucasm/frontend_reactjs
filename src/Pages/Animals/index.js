@@ -111,13 +111,20 @@ class Animals extends React.Component{
                                     {/* Rendering animal card */}
                                     {this.state.data.map(
                                         ({id,animal_type,age,animal_photo,size,
-                                            location,description,show,sex,sex_display}) => (
+                                            location,description,show,sex,sex_display,
+                                            animal_type_display,location_display,
+                                            size_display,
+                                        }
+                                            ) => (
                                         <Col key= {String(id)}
                                         className="pt-3" lg = '4' md = '6' sm = '12' xs = '12' id = 'col_animal'>
                                             <AnimalCard 
                                                 key = {id}
                                                 animal_photo = {animal_photo}
                                                 animal_type = {animal_type}
+                                                animal_type_display = {animal_type_display}
+                                                location_display = {location_display}
+                                                size_display = {size_display}
                                                 age = {age}
                                                 size = {size}
                                                 location = {location}
