@@ -105,7 +105,7 @@ export default class  UserService{
             const response = await axios.get(url)
             return response.data
         }else{
-            const url = `${API_URL}api/users/${user_type}/`
+            const url = `${API_URL}/api/users/${user_type}/`
             const response = await axios.get(url)
             return response.data
         }

@@ -1,6 +1,6 @@
 import React from 'react'
 import {UncontrolledCarousel,Card,CardText, CardBody,/* CardTitle, CardSubtitle,  */
-    CardImg, Button, CardHeader} from 'reactstrap';
+    CardImg, Button, CardHeader,Modal} from 'reactstrap';
 import apiPrivateService from '../../../../Service/apiPrivateService'
 import './index.css';
 import API_URL from '../../../../global'
@@ -8,6 +8,9 @@ class AnimalCard extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            modal:false,
+        }
         this.deleteAnimal = this.deleteAnimal.bind(this)
     }
     
@@ -86,6 +89,7 @@ class AnimalCard extends React.Component {
                         </Button>
                     </div>
                 </Card>
+                
             </>
         )
     }else{
@@ -147,12 +151,25 @@ class AnimalCard extends React.Component {
                         }
                             <Button outline
                             color = 'warning'
-                            id = 'animal-card-edit-button'>
+                            id = 'animal-card-edit-button'
+                            onClick = {() => {
+                                this.setState({modal:!this.state.modal})
+                            }}
+                            >
                                 Editar
                             </Button>
                     </div>
                     </div>
                 </Card>
+                {/* Modal de edição do animal */}
+                <Modal isOpen={this.state.modal} 
+                toggle={()=>{
+                    this.setState({modal:!this.state.modal})
+                }}>
+                    <div style = {{padding:'5%'}}>
+                        Teste
+                    </div>
+                </Modal>
             </>
         )
     }

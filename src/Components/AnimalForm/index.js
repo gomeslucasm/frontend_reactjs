@@ -4,6 +4,7 @@ import {Row,Col,Button, FormGroup,Label, Input} from 'reactstrap'
 import ImageCropper from '../ImageCropper';
 import './index.css'
 import apiPrivateService from '../../Service/apiPrivateService';
+import Loader from '../Loader';
 
 class AnimalForm extends React.Component {
     constructor(props) {
@@ -28,6 +29,7 @@ class AnimalForm extends React.Component {
             volunteers:{},
             show_volunteers:null,
             show_canil_info:null,
+            show_form:true
         }
 
         
@@ -51,6 +53,7 @@ class AnimalForm extends React.Component {
 
     async postAnimal(e){
         e.preventDefault()
+        this.setState({show_form:false})
         var form = this.state.form
         var imgs = this.state.imgs
         form['animal_photo'] = imgs
@@ -144,7 +147,12 @@ class AnimalForm extends React.Component {
 
     return(
         <div>
-        <form onSubmit={this.postAnimal} id = 'animal-form' >
+        <form onSubmit={this.postAnimal} id = 'animal-form' 
+        style = {
+            this.state.show_form ?
+            {display:'block'} : {display: 'none'}
+        }
+        >
             <Row>   
                 <Col lg = '3' md = '4' sm = '12' id = 'col-animal-form' >
                 <FormGroup id = 'center-form-group' >
@@ -318,6 +326,7 @@ class AnimalForm extends React.Component {
                             })}
                         </Row>
                     </div>
+                    
                     </>
                 }
                 
@@ -333,6 +342,17 @@ class AnimalForm extends React.Component {
             </div>
                 
         </form>
+        <div
+                    style = {this.state.show_form ?
+                        {display: 'none',justifyContent:'center',} :
+                        {display: 'flex',justifyContent:'center'}
+                    }
+                    >
+                        <p>Registrando animal</p>
+                        <Loader 
+                        display = {!this.state.show_form}
+                        />
+                    </div>
         </div>
     )}
 }

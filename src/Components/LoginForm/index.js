@@ -57,7 +57,7 @@ class LoginForm extends React.Component {
             var logged = false;
             this.props.loggedCallback(logged) 
             console.log(error)
-            this.setState({login_error:false})
+            this.setState({login_error:true})
             this.setState({display_form:true})
             console.log(this.state)
             this.setState({'password':'','username':''})
