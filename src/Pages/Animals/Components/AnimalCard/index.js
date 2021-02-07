@@ -4,6 +4,7 @@ import {UncontrolledCarousel,Card,CardText, CardBody,/* CardTitle, CardSubtitle,
 import apiPrivateService from '../../../../Service/apiPrivateService'
 import './index.css';
 import API_URL from '../../../../global'
+import AnimalFormEdit from '../../../../Components/AnimalFormEdit';
 class AnimalCard extends React.Component {
 
     constructor(props) {
@@ -47,8 +48,6 @@ class AnimalCard extends React.Component {
     }
 
     render(){
-
-
         if(this.props.is_logged===false){
         return(
             <>
@@ -82,7 +81,9 @@ class AnimalCard extends React.Component {
                     <div style = {{
                         display:'flex',justifyContent: 'center',marginBottom:'1.25rem'
                         }}>
-                        <Button
+                        <Button onClick = {()=>{
+                            this.props.callbackAnimalDetail(this.props.id)
+                        }}
                                 color = 'success'
                                 id = 'animal-card-see-button'>
                                     Ver animal
@@ -127,7 +128,7 @@ class AnimalCard extends React.Component {
                         </div> */}
                     </CardBody>
                     <div>
-                    <div style = {{display:'flex','justifyContent':'space-between'}}>
+                    <div id = 'animal-card-edit-button-wraper'>
                         <Button outline
                          color = 'danger'
                         onClick={this.deleteAnimal} 
@@ -168,7 +169,7 @@ class AnimalCard extends React.Component {
                     this.setState({modal:!this.state.modal})
                 }}>
                     <div style = {{padding:'5%'}}>
-                        Teste
+                        <AnimalFormEdit id = {this.props.id}/>
                     </div>
                 </Modal>
             </>

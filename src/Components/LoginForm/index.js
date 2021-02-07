@@ -4,7 +4,7 @@ import {TextField, Button} from '@material-ui/core';
 import {Row,Col/* ,Form */} from 'reactstrap'
 import Loader from '../../Components/Loader'
 
-
+const userService = new UserService()
 class LoginForm extends React.Component {
 
     /* Construtor da classe */
@@ -20,6 +20,10 @@ class LoginForm extends React.Component {
         /* Funções que usam o this */
         this.handleChange = this.handleChange.bind(this);
         this.submitLogin = this.submitLogin.bind(this);
+        
+    }
+
+    async componentDidMount() {
     }
 
     /* Adicionando as informações dos inputs do formulário ao state*/
@@ -38,31 +42,15 @@ class LoginForm extends React.Component {
         }
         /* Prevenindo o refresh ao fazer o submit */
         e.preventDefault();
-        /* Objeto dos métodos para fazer as requisições de usuários da API */
-        const userService = new UserService()
         /* Enviando a requisição */
-        await userService.login(JSON.stringify(login_data)
-        ).then(response => {
-            if(response.ok ){
-            } else {
-                /* Armazenando os tokens no navegador */
-                userService.store_token(response)
-                var logged = true;
-                console.log('Deu certo o login',logged)
-                
-                this.props.loggedCallback(logged)
-            }
-        
-        }).catch((error) => {
-            var logged = false;
-            this.props.loggedCallback(logged) 
-            console.log(error)
+        const response_login = await userService.login(JSON.stringify(login_data)) 
+        if(response_login){
+            this.props.loginCallback(response_login)
+        }else{
             this.setState({login_error:true})
             this.setState({display_form:true})
-            console.log(this.state)
             this.setState({'password':'','username':''})
-        });
-        
+        }
     }
 
     render(){

@@ -5,82 +5,44 @@ import DefaultPage from '../DefaultPage';
 import LoginForm from '../LoginForm'
 import styled from 'styled-components'
 import Loader from '../Loader'
+import {useSelector, useDispatch} from 'react-redux'
+import {login} from '../../Store/Login/login.actions'
 
 const Div = styled.div`
     text-align:center;
     width:100%;
 `
 
-class PrivateDefaultPage extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state={
-            'is_logged':null
-        };
-        this.isLogged = this.isLogged.bind(this);
-    }
+function PrivateDefaultPage({children}){
 
+    const isLogged = useSelector(state=> state.login);
+    const dispatch = useDispatch();
+    console.log(isLogged)
 
-    async componentDidMount() {
-        /* await this.wait(2000); */
-        await this.isLogged()
-    }
-    
-    async isLogged(){
-        const userService = new UserService();
-        var logged = await userService.is_logged();
-        console.log('logado?', logged)
-        this.setState({is_logged:logged})
-        console.log(this.state['is_logged'])
-    }
-
-    wait(ms){
-        var start = new Date().getTime();
-        var end = start;
-        while(end < start + ms) {
-          end = new Date().getTime();
-       }
-     }
-
-    render(){
-        if(this.state['is_logged'] === null){
-            return(
+    if(isLogged == false){
+        return(
+            <>
             <DefaultPage>
                 <Div>
-                       <Loader display = {true}/>
+                    <h1>Você precisa estar logado pra estar aqui ;)</h1>
                 </Div>
+                <LoginForm 
+                loginCallback = {(val)=>{
+                    dispatch(login())}
+                }
+                />
             </DefaultPage>
-            )
-        }
-        else if(this.state['is_logged'] === false){
-            console.log('sdaoasijdioasjdio')
-            return(
-                <>
+            </>
+        )
+    }else{
+        return(
+            <>
                 <DefaultPage>
-                    <Div>
-                        <h1>Você precisa estar logado pra estar aqui ;)</h1>
-                    </Div>
-                    <LoginForm 
-                     loggedCallback = {async value => 
-                    {   console.log('login?', value)
-                        await this.setState({is_logged:value})
-                        }}/>
+                    {children}
                 </DefaultPage>
-                </>
-            )
-        }else{
-            return(
-                <>
-                    <DefaultPage>
-                        {this.props.children}
-                    </DefaultPage>
-                </>
-            )
-        }
-
-
+            </>
+        )
     }
-
 }
 
 export default PrivateDefaultPage;

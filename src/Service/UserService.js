@@ -1,6 +1,8 @@
 import axios from 'axios';
 import API_URL from '../global'
+/* import {useDispatch} from 'react-redux'
 
+const dispatch = useDispatch(); */
 
 /* Métodos para autenticação, criação e obtenção de usuários */
 export default class  UserService{
@@ -12,11 +14,21 @@ export default class  UserService{
     /* Função que armazena faz o GET do token */
     async login(data){
         const url = `${API_URL}/api/token/`;
-        return await axios.post(url,data,{
+        const response = await axios.post(url,data,{
             headers:{
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin':'*'
-            }})
+            }}).then(response => {
+                /* Armazenando os tokens no navegador */
+                this.store_token(response)
+                console.log('---------- Logado -----------')
+                return true
+
+            }).catch((error) => {
+                console.log('--- Erro de login ---')
+                return false    
+            });
+        return response
     }
     /* Método que testa se o usuário está logado */
     async is_logged(){
@@ -38,7 +50,7 @@ export default class  UserService{
                 'Access-Control-Allow-Origin':'*'
             }}
         ).then(response =>response)
-        
+
         /* Se a resposta.ok for true */
         if(res.ok === true){
                 console.log('está logado')
@@ -62,13 +74,12 @@ export default class  UserService{
                 console.log('não está logado')
                 return false
             }
-        }
-                
+        }     
     }
     /* Método que desloga e exclui os tokens do navegador*/
     logout(){
         localStorage.removeItem('token')
-        localStorage.removeItem('refresh_token')
+        localStorage.removeItem('refresh')
     }
     /* Método que obtém o token armazendo */
     get_token(){

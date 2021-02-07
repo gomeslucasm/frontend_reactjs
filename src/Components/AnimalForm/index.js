@@ -165,7 +165,13 @@ class AnimalForm extends React.Component {
 
     return(
         <div>
-        <form onSubmit={this.postAnimal} id = 'animal-form' 
+        <form onSubmit={()=>{
+            if(this.state.imgs === null){
+                alert('Adicione a foto do animal')
+            }else{
+                this.postAnimal()
+            }
+        }} id = 'animal-form' 
         style = {
             this.state.show_form ?
             {display:'block'} : {display: 'none'}

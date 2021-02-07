@@ -1,10 +1,11 @@
-import React,{useState,/* useEffect */} from 'react'
+import React,{useState,useEffect} from 'react'
 import {
     Collapse,
     Navbar,
     NavbarToggler,
     NavLink,
     NavItem,
+    Button,
 /*     NavbarBrand, */
     Nav,
     Modal,
@@ -19,35 +20,54 @@ import {
   } from 'reactstrap';
 import UserService from '../../../../Service/UserService';
 import LoginForm from '../../../LoginForm';
-
 import './index.css'
+import {useSelector,useDispatch} from 'react-redux'
+import {is_logged, login, logout} from '../../../../Store/Login/login.actions'
 
 const userService = new UserService();
 
 function  NavHeader(){
 
     const [isOpen, setIsOpen] = useState(false);
-    const [isLogged , setIsLogged] = useState(userService.is_logged());
+    const [secondIsOpen, setSecondIsOpen] = useState(false)
+    const isLogged = useSelector(state => state.login)
     const [modal, setModal] = useState(false);
+    const dispatch = useDispatch();
+
+    console.log('teste-nav', isLogged)
 
     const modal_toggle = () => setModal(!modal);
     const toggle = () => setIsOpen(!isOpen);
+    const second_toggle = () => setSecondIsOpen(!secondIsOpen); 
+
+    useEffect(/* async */ () =>{
+        dispatch(is_logged())
+    })
+    
 
     return(
         <>
-        <div>           
+        <div>  
             <Navbar color="dark" light expand="sm" 
             id = 'nav-bar'>
-                <NavbarToggler onClick={toggle} />
+                <Button 
+                onClick={toggle}
+                style = {{textAlign: 'center', width: '100%'}}
+                id = 'toggler-button'>
+                    Menu
+                </Button> 
+                
+
                 <Collapse isOpen={isOpen} navbar>   
+                 
                     <Nav className="mr-auto" navbar>
-                        <NavItem>
+                        <NavItem id = 'nav-item'>
                             <NavLink href="/">Página inicial</NavLink>
                         </NavItem>
-                        <NavItem>
+                        <NavItem id = 'nav-item'>
                             <NavLink href="/animais/">Animais</NavLink>
                         </NavItem>
-                        <NavItem>
+                        <NavItem id = 'nav-item'>
                             {!isLogged &&
                                 <NavLink onClick={modal_toggle}
                                 >Login
@@ -55,9 +75,8 @@ function  NavHeader(){
                             }
                             {isLogged &&
                                 <NavLink 
-                                onClick={async ()=>{
-                                    await userService.logout();
-                                    setIsLogged(false)
+                                onClick={()=>{
+                                    dispatch(logout())
                                 }}
                                 >Logout
                                 </NavLink>
@@ -72,13 +91,21 @@ function  NavHeader(){
             <div>
             <Navbar color="info" light expand="sm" 
             id = 'nav-bar'>
-                <NavbarToggler onClick={toggle} />
-                <Collapse isOpen={isOpen} navbar>   
+
+                <Button 
+                style = {{textAlign: 'center', width: '100%'}}
+                onClick={second_toggle}
+                id = 'toggler-button'
+                >
+                    Administração
+                </Button> 
+
+                <Collapse isOpen={secondIsOpen} navbar>   
                     <Nav className="mr-auto" navbar>
-                        <NavItem>
+                        <NavItem id = 'nav-item'>
                             <NavLink href="/adicionar/animal/">Registrar animal</NavLink>
-                        </NavItem>
-                        <NavItem>
+                        </NavItem >
+                        <NavItem id = 'nav-item'>
                             <NavLink href="/animais/">Registrar adoção</NavLink>
                         </NavItem>
                     </Nav>
@@ -88,12 +115,11 @@ function  NavHeader(){
         <Modal isOpen={modal} toggle={modal_toggle}>
             <div style = {{padding:'5%'}}>
                 <LoginForm 
-                loggedCallback = {async (val)=>{
-                    await setIsLogged(val)
-                    if(val){
-                        setModal(false)
-                    }
-                }}
+                loginCallback = {(val)=>{
+                    console.log('login', val)
+                    setModal(!modal)
+                    dispatch(login())}
+                }
                 />
             </div>
         </Modal>

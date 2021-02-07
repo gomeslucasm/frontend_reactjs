@@ -4,6 +4,23 @@
     margin: 5%;
 }
 
+#animal-card-edit-button-wraper{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+@media(min-width: 992px){
+    #animal-card-edit-button{
+        width: 28%;
+        /* text-align: center; */
+        margin: 5%;
+    }
+    #animal-card-edit-button-wraper{
+        display: flex;
+        width: 100%;
+    }
+}
 
 #wraper-card-animal-info{
     width: 100%;

@@ -9,15 +9,24 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Animals from './Pages/Animals';
 import Teste from './Pages/Teste';
 import AddAnimal from './Pages/AddAnimal';
+import Adoption from './Pages/Adoption';
+/* import store from './Store/store' */
+import {Provider } from 'react-redux';
+import { createStore, applyMiddleware } from "redux";
+import loginReducer from './Store/Login/login.reducer'
+import store from './Store/store';
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
+      <Provider store = {store} >
       <Route exact path = '/' component = {HomePage} /> 
       <Route exact path = '/animais/' component = {Animals} />
       <Route exact path = '/teste/' component = {Teste} />
       <Route exct path = '/login/' component = {Login} />
-      <Route exct path = '/adicionar/animal/' component = {AddAnimal} />
+      <Route exact path = '/adicionar/animal/' component = {AddAnimal} />
+      <Route exact path = '/adocao/' component = {Adoption} />
+      </Provider>
     </Switch>
   </BrowserRouter>,
 

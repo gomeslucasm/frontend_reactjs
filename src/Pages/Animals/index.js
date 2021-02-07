@@ -15,6 +15,7 @@ class Animals extends React.Component{
         super(props);
         this.state = {
             data:[],
+            animal_by_id:[],
             url_query:{
                 size:{
                     'PP':false,
@@ -30,33 +31,32 @@ class Animals extends React.Component{
             },
             is_logged:false,
             display:false,
+            display_animal:false
         }
+
         this.handleFilterQuery = this.handleFilterQuery.bind(this);
         this.getFilteredData = this.getFilteredData.bind(this);
         this.handleChange = this.handleChange.bind(this)
         this.showData = this.showData.bind(this)
         this.eventHandler = this.eventHandler.bind(this)
         this.getData = this.getData.bind(this)
-
+        
     }
-    
+ 
     handleChange(e){
         e.preventDefault()
         console.log(e.target.checked)
     }
-
     showData(){
         console.log(this.state.url_query_form)
         console.log('kakakakaka')
     }
-
     async getData(){
-        const service = new apiPublicService();
-        const data = await service.getAnimals(); 
+        const publicService = new apiPublicService();
+        const data = await publicService.getAnimals(); 
         this.setState({data:data})
         console.log(this.state.data)
     }
-
     async componentDidMount(){
         await this.getData()
         await this.isLogged()
@@ -67,7 +67,6 @@ class Animals extends React.Component{
         event.preventDefault()
         console.log(event.target.value)
     }
-
     async getFilteredData(){
         /* const service = new apiPublicService();
         const data = await service.getAnimals() */
@@ -85,10 +84,18 @@ class Animals extends React.Component{
           }
         console.log(url_query)  
     }
-
     eventHandler(data){
         console.log(data)
         this.setState({url_query_form:data})
+    }
+    showAnimalDetail(id){
+        /* console.log(this.state.data.filter(this.state.data = 1)) */
+        console.log('id',id)
+        console.log(...
+            this.state.data.filter((animal)=>{
+                return animal['id'] === id
+            })
+        )
     }
     
     async isLogged(){
@@ -105,6 +112,10 @@ class Animals extends React.Component{
             return(
                 <>
                     <DefaultPage>
+                        {/*  */}
+
+
+                        {/* Animal card */}
                         <Container margin-top = '10px' id = 'container-row-animal'>
                             <Row >
                                 {/* Card */}
@@ -135,6 +146,9 @@ class Animals extends React.Component{
                                                 is_logged = {this.state.is_logged}
                                                 id = {id}
                                                 deleteCallback = {()=>{this.getData()}}
+                                                callbackAnimalDetail = {(id)=>{
+                                                    this.showAnimalDetail(id)
+                                                }}
                                                 />
                                         </Col>   
                                         

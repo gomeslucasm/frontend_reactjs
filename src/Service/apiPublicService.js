@@ -18,6 +18,18 @@ class apiPublicService{
         const response = await axios.get(url);
         return response.data
     }
+
+    /* async getAnimal(id){
+        var url = ''
+        if(url_query.length>1){
+            url = `${URL}animals/?${url_query}`;
+        }else{
+            url = `${URL}animals/`;
+        }
+        
+        const response = await axios.get(url);
+        return response.data
+    } */
     
     /* Animals list */
 /*     async getAnimals(){
