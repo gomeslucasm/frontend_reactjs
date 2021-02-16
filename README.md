@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Front-End para uma aplicação de controle de animais em um canil
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Ainda em desenvolvimento...
 
 ## Available Scripts
 
