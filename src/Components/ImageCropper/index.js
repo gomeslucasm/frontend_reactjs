@@ -1,4 +1,4 @@
-import { Button,/* Row,Col, */ Modal/* , CustomInput,FormGroup,Form */} from 'reactstrap'
+import { button,/* Row,Col, */ Modal/* , CustomInput,FormGroup,Form */} from 'reactstrap'
 import React from 'react';
 import ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
@@ -78,29 +78,27 @@ class ImageCropper extends React.Component{
                     ref = {this.imageInputRef } style = {{display:'none'}}
                     onChange ={this.handleImage} />
                     <div style = {{'textAlign':'center',}}>
-                        <Button 
-                        color="primary"
-                        type = 'button' 
+                        <button 
                         onClick={this.clickInput}
                         style = {{'width':'40%',}}
                         > 
-                        Adicionar fotos do animal</Button>
+                        Adicionar fotos do animal</button>
                      </div>
                     
                     <Modal isOpen = {this.state.modal}>
                     {   this.state.src && 
                         <div>
                             <div style = {{display:'flex','width':'100%','justify-content':'space-around',}}>
-                                <Button type = 'button' color = 'danger'
+                                <button
                                 onClick={()=>{
                                     this.setState({modal:!this.state.modal})
                                 }}
                                 style = {{display:'block','width':'50%'}}
-                                >Cancelar</Button>
-                                <Button type = 'button' color = 'info'
+                                >Cancelar</button>
+                                <button 
                             onClick={this.getCroppedImg}
                             style = {{display:'block','width':'50%'}}
-                                >Cortar imagem</Button>
+                                >Cortar imagem</button>
                             </div>
                             
 

@@ -1,19 +1,12 @@
-import UserService from "../../Service/UserService";
-
-const userService = new UserService()
-const is_logged = async () =>{return userService.is_logged();}
-
-
-export default function(state = true , action){
-
+export default function login(state = false , action){
     switch(action.type){
-        case 'logout':
+        case 'LOGOUT':
             return action.payload[0]
 
-        case 'login':
+        case 'LOGIN':
             return action.payload[0]
 
-        case 'is_logged':
+        case 'IS_LOGGED':
             return action.payload[0]
                     
         default:

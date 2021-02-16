@@ -8,6 +8,13 @@ class HomePage extends React.Component{
         this.state = {
         };
       }
+    componentDidMount(){
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+      
+    }
     render(){
         return(
             <>

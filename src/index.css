@@ -19,3 +19,115 @@ code {
   margin: 0px;
   padding: 0px;
 }
+
+
+.div-btn-pages{
+  display: flex;
+  justify-content: center;
+  /* position: absolute; */
+  /* bottom: 0; */
+  width: 100%;
+  margin-top: 1rem;
+  /* position: absolute; */
+}
+
+@media (max-width: 576px){
+  .div-btn-pages{
+    display: flex;
+    justify-content: center;
+    bottom: 0;
+  width: 100%;
+  margin-top: 0.5rem;
+  }
+}
+
+.custom-btn{
+  /* text-transform: uppercase; */
+  background-color:white;
+  padding: 0.2rem 0.4rem;
+  border-style: solid;
+  border-radius: 0.4rem;
+  border-color: transparent;
+  transition: opacity 0.2s, box-shadow 0.2s,border-color 0.2s;
+}
+
+.custom-btn:hover{
+  opacity: 0.5;
+  box-shadow:0.1rem 0.1rem 0.1rem rgb(179, 179, 179);
+  border-style: solid;
+  border-radius: 0.4rem;
+  border-color: rgb(102, 102, 102);
+}
+
+.custom-btn:focus{
+  outline:0;
+}
+
+.custom-btn.primary{
+  background-color: rgb(114, 209, 114);
+  border-color: rgb(162, 209, 162,1.5);
+}
+
+.custom-btn.action{
+  background-color: rgb(68, 153, 179);
+  border-color: rgb(43, 127, 153,0.3);
+}
+
+.custom-btn.exclude{
+  background-color: #FF1F51;
+  border-color:#883b4b77;
+}
+
+.custom-btn.edit{
+  background-color:#FFF21F ;
+  border-color: #fff41f6e;
+}
+
+.custom-btn.hide{
+  background-color: #52D1FF;
+  border-color:  #52d1ff73;
+}
+
+.custom-btn.show{
+  background-color: #52D1FF;
+  border-color:  #52d1ff73;
+}
+
+
+.custom-header{
+  background-color:;
+}
+
+
+.custom-navbar-admin{
+  background-color:#05BCFF;
+}
+
+.custom-nav-link{
+  font-size: 1.2rem;
+  padding: 0.3rem;
+  text-align: center;
+  margin: auto;
+  transition: font-size 0.2s, color 0.4s, background-color 0.5s, border-radius 0.5s;
+  color: #123740; 
+  width: 100%;
+}
+
+.custom-nav-link:hover{
+  text-decoration: none;
+  font-size: 1.15rem;
+  cursor: pointer;
+  color: #2b7081; 
+  border-radius: 1rem;
+  background-color: #5aa8bb;
+}
+
+/* #container-row-animal{
+  margin-bottom:2rem;
+}
+
+@media (min-width: 576px) {
+  #container-row-animal{
+    margin-bottom:0.2rem;
+  }
+} */

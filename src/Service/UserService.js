@@ -28,6 +28,7 @@ export default class  UserService{
                 console.log('--- Erro de login ---')
                 return false    
             });
+            
         return response
     }
     /* Método que testa se o usuário está logado */
@@ -53,7 +54,7 @@ export default class  UserService{
 
         /* Se a resposta.ok for true */
         if(res.ok === true){
-                console.log('está logado')
+            console.log('---------- Está logado -----------')
                 return true
         }else{
             await this.refresh_token();
@@ -68,10 +69,10 @@ export default class  UserService{
             ).then(response =>{return response})
 
             if(res.ok === true){
-                console.log('está logado')
+                console.log('---------- Está logado -----------')
                 return true
             }else{
-                console.log('não está logado')
+                console.log('---------- Não está logado -----------')
                 return false
             }
         }     
@@ -79,7 +80,7 @@ export default class  UserService{
     /* Método que desloga e exclui os tokens do navegador*/
     logout(){
         localStorage.removeItem('token')
-        localStorage.removeItem('refresh')
+        localStorage.removeItem('refresh_token')
     }
     /* Método que obtém o token armazendo */
     get_token(){

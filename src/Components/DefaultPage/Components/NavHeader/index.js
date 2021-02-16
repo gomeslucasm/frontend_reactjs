@@ -1,133 +1,97 @@
-import React,{useState,useEffect} from 'react'
+import React, { useState } from "react";
 import {
-    Collapse,
-    Navbar,
-    NavbarToggler,
-    NavLink,
-    NavItem,
-    Button,
-/*     NavbarBrand, */
-    Nav,
-    Modal,
-/*     ,
-    NavLink,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
-    NavbarText, */
-    /* Button, */
-  } from 'reactstrap';
-import UserService from '../../../../Service/UserService';
-import LoginForm from '../../../LoginForm';
-import './index.css'
-import {useSelector,useDispatch} from 'react-redux'
-import {is_logged, login, logout} from '../../../../Store/Login/login.actions'
+  Modal,
+} from "reactstrap";
+import LoginForm from "../../../LoginForm";
+import "./index.css";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../../../Store/Login/login.actions";
+/* import UserService from "../../../../Service/UserService"; */
+import { Link} from "react-router-dom";
+/* 
+const userService = new UserService(); */
 
-const userService = new UserService();
+const NavBarItem = ({ children, itemStyle, id }) => {
+  return (
+    <div className="custom-nav-item" id = {id} style={itemStyle}>
+      {children}
+    </div>
+  );
+};
 
-function  NavHeader(){
-
-    const [isOpen, setIsOpen] = useState(false);
-    const [secondIsOpen, setSecondIsOpen] = useState(false)
-    const isLogged = useSelector(state => state.login)
-    const [modal, setModal] = useState(false);
-    const dispatch = useDispatch();
-
-    console.log('teste-nav', isLogged)
-
-    const modal_toggle = () => setModal(!modal);
-    const toggle = () => setIsOpen(!isOpen);
-    const second_toggle = () => setSecondIsOpen(!secondIsOpen); 
-
-    useEffect(/* async */ () =>{
-        dispatch(is_logged())
-    })
-    
-
-    return(
-        <>
-        <div>  
-            <Navbar color="dark" light expand="sm" 
-            id = 'nav-bar'>
-                <Button 
-                onClick={toggle}
-                style = {{textAlign: 'center', width: '100%'}}
-                id = 'toggler-button'>
-                    Menu
-                </Button> 
-                
-
-                <Collapse isOpen={isOpen} navbar>   
-                 
-                    <Nav className="mr-auto" navbar>
-                        <NavItem id = 'nav-item'>
-                            <NavLink href="/">Página inicial</NavLink>
-                        </NavItem>
-                        <NavItem id = 'nav-item'>
-                            <NavLink href="/animais/">Animais</NavLink>
-                        </NavItem>
-                        <NavItem id = 'nav-item'>
-                            {!isLogged &&
-                                <NavLink onClick={modal_toggle}
-                                >Login
-                                </NavLink>
-                            }
-                            {isLogged &&
-                                <NavLink 
-                                onClick={()=>{
-                                    dispatch(logout())
-                                }}
-                                >Logout
-                                </NavLink>
-                            }
-                        </NavItem>
-                    </Nav>
-                </Collapse>
-            </Navbar>
+const NavBarButton = ({ children, itemStyle, hRef, link = true, onClick }) => {
+  if (link) {
+    return (
+      <>
+        <Link className="custom-nav-link" to={hRef}>
+          {children}
+        </Link>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <div className="custom-nav-link" onClick={onClick}>
+          {children}
         </div>
+      </>
+    );
+  }
+};
 
-        {isLogged &&
-            <div>
-            <Navbar color="info" light expand="sm" 
-            id = 'nav-bar'>
+function NavHeader() {
+  const [isOpen, setIsOpen] = useState(false);
+  const isLogged = useSelector((state) => state.login);
+  const dispatch = useDispatch();
 
-                <Button 
-                style = {{textAlign: 'center', width: '100%'}}
-                onClick={second_toggle}
-                id = 'toggler-button'
-                >
-                    Administração
-                </Button> 
+  const toggle = () => setIsOpen(!isOpen);
+  console.log(isLogged);
 
-                <Collapse isOpen={secondIsOpen} navbar>   
-                    <Nav className="mr-auto" navbar>
-                        <NavItem id = 'nav-item'>
-                            <NavLink href="/adicionar/animal/">Registrar animal</NavLink>
-                        </NavItem >
-                        <NavItem id = 'nav-item'>
-                            <NavLink href="/animais/">Registrar adoção</NavLink>
-                        </NavItem>
-                    </Nav>
-                </Collapse>
-            </Navbar>
-        </div>}
-        <Modal isOpen={modal} toggle={modal_toggle}>
-            <div style = {{padding:'5%'}}>
-                <LoginForm 
-                loginCallback = {(val)=>{
-                    console.log('login', val)
-                    setModal(!modal)
-                    dispatch(login())}
-                }
-                />
-            </div>
-        </Modal>
-        </>
-    )
-    
+  return (
+    <>
+      <div className="custom-nav">
+        <div className="custom-navbar" id="nav-bar-first">
+          <NavBarItem id = 'nav-item-initial-page'>
+            <NavBarButton hRef="/">Página inicial</NavBarButton>
+          </NavBarItem>
+          <NavBarItem>
+            <NavBarButton hRef="/animais/">Animais</NavBarButton>
+          </NavBarItem>
+          <NavBarItem id = 'nav-item-login'>
+            {!isLogged && (
+              <NavBarButton
+                link={false}
+                onClick={() => {
+                  setIsOpen(!isOpen);
+                }}
+              >
+                Login
+              </NavBarButton>
+            )}
+            {isLogged && (
+              <NavBarButton
+                link={false}
+                onClick={() => {
+                  dispatch(logout());
+                }}
+              >
+                Logout
+              </NavBarButton>
+            )}
+          </NavBarItem>
+        </div>
+      </div>
+      <Modal isOpen={isOpen} toggle={toggle}>
+        <div id="modal-login-form-wrapper">
+          <LoginForm
+            loginCallback={() => {
+              setIsOpen(!isOpen);
+            }}
+          />
+        </div>
+      </Modal>
+    </>
+  );
 }
-
-
 
 export default NavHeader;

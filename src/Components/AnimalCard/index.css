@@ -6,8 +6,9 @@
 
 #animal-card-edit-button-wraper{
     display: flex;
-    justify-content: center;
     width: 100%;
+    justify-content: space-around;
+    padding: 0.3rem 0.3rem;
 }
 
 @media(min-width: 992px){
@@ -33,4 +34,10 @@
 #animal-card-see-button{
     width: 50%;
     
+}
+
+.animal-card{
+    /* display:none;
+    transition: display 20s; */
+    margin-bottom: 1rem;
 }

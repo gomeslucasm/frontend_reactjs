@@ -1,4 +1,4 @@
-import { TextField} from '@material-ui/core';
+/* import { TextField} from '@material-ui/core'; */
 import {Input,Label, FormGroup, Row, Col, Button} from 'reactstrap'
 import React from 'react'
 import LocationsService from '../../Service/LocationsService'
@@ -8,7 +8,7 @@ import apiPrivateService from '../../Service/apiPrivateService';
 const locationsService = new LocationsService();
 const privateService = new apiPrivateService();
 
-class AddAdopter extends React.Component{
+class AdopterForm extends React.Component{
 
     constructor(props){
         super(props)
@@ -183,4 +183,4 @@ class AddAdopter extends React.Component{
     }
 }
 
-export default AddAdopter;
+export default AdopterForm;

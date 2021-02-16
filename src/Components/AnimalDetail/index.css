@@ -1,0 +1,33 @@
+/* .animal-detail-wraper{
+    width:50px;
+    height: 25px;
+    display:flex;
+    justify-content: center;
+}
+ */
+#col-animal-detail-info{
+    padding: 0 1rem;
+    
+    border-radius: 1rem;
+    height:auto;
+    width: 100%;
+    
+}
+
+/* @media (max-width: 576px) { */
+    /* #col-animal-detail-info{
+        margin-top: 1rem;
+    } */
+    .col-animal-detail-info-wrapper{
+        padding: 0.1rem 0.5rem;
+        /* margin-top: 1rem; */
+        background-color:#82b1bd;
+        width:100%;
+        height:100%;
+    }
+/* } */
+
+.animal-photo-detail{
+    border-radius:0.5rem;
+    /* width: 50rem; */
+}

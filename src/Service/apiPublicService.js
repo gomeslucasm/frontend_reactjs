@@ -7,13 +7,9 @@ const URL = API_URL + '/api/public/'
 class apiPublicService{
 /*     constructor(){}
  */
-    async getAnimals(url_query = '?'){
-        var url = ''
-        if(url_query.length>1){
-            url = `${URL}animals/?${url_query}`;
-        }else{
-            url = `${URL}animals/`;
-        }
+    async getAnimals(page = '1'){
+
+        const url = `${URL}animals/?page=${page}`;
         
         const response = await axios.get(url);
         return response.data

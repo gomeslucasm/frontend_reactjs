@@ -1,0 +1,29 @@
+.btn-page {
+  margin: 0 10px;
+}
+
+#btn-next {
+  /* margin-right: 5rem;  */
+  width: 45%;
+  /* margin-left: auto;
+  float: right; */
+}
+
+#btn-prev {
+  /* margin-left: 5rem; */
+  width: 45%;
+  /* margin-right: auto;
+  float: left; */
+}
+
+@media (min-width: 576px) {
+  #btn-next {
+    width: auto;
+    /* margin-right: 5rem; */ 
+  }
+
+  #btn-prev {
+    width: auto;
+    /* margin-left: 5rem; */
+  }
+}

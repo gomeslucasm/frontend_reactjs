@@ -63,7 +63,9 @@ class Login extends React.Component{
                             <Button href = "/" ariant="contained" color="primary" >Ir para página inicial</Button> 
                         </Col>
                     <Col xs ='12' md = '12' className = 'd-flex justify-content-center m-1'>
-                            <Button onClick = {this.handleLogout} variant="contained" color="secondary" >Logout</Button> 
+                            <button 
+                            onClick = {this.handleLogout}
+                             >Logout</button> 
                         </Col>
                     </DivLogged>
                 </DefaultPage>

@@ -3,6 +3,8 @@ import UserService from '../../Service/UserService';
 import {TextField, Button} from '@material-ui/core';
 import {Row,Col/* ,Form */} from 'reactstrap'
 import Loader from '../../Components/Loader'
+import {login} from '../../Store/Login/login.actions'
+import {connect} from 'react-redux'
 
 const userService = new UserService()
 class LoginForm extends React.Component {
@@ -40,16 +42,17 @@ class LoginForm extends React.Component {
             'username':this.state.username,
             'password':this.state.password
         }
-        /* Prevenindo o refresh ao fazer o submit */
         e.preventDefault();
-        /* Enviando a requisição */
         const response_login = await userService.login(JSON.stringify(login_data)) 
+        console.log('resposta login', response_login)
         if(response_login){
-            this.props.loginCallback(response_login)
+            this.props.loginCallback()
+            this.props.setLogin(response_login)
         }else{
             this.setState({login_error:true})
             this.setState({display_form:true})
             this.setState({'password':'','username':''})
+            this.props.setLogin(response_login)
         }
     }
 
@@ -92,4 +95,11 @@ class LoginForm extends React.Component {
     }
 }
 
-export default LoginForm;
+
+
+const mapDispatchToProps = dispatch => ({
+    setLogin: (value) => dispatch(login(value))
+})
+
+
+export default connect(null,mapDispatchToProps)(LoginForm)

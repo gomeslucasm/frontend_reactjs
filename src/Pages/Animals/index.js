@@ -1,173 +1,170 @@
-import React from 'react'
-import DefaultPage from '../../Components/DefaultPage';
-import apiPublicService from '../../Service/apiPublicService'
-import AnimalCard from './Components/AnimalCard';
-import { Container, Row, Col } from 'reactstrap';
-import './index.css'
-/* import FilterMenu from './Components/FilterMenu'; */
-import { /* Button */ /* Form, FormGroup, Label, Input */ } from 'reactstrap';
-import UserService from '../../Service/UserService';
-import Loader from '../../Components/Loader'
+import React from "react";
+import DefaultPage from "../../Components/DefaultPage";
+/* import apiPublicService from "../../Service/apiPublicService"; */
+import "./index.css";
+import UserService from "../../Service/UserService";
+import Loader from "../../Components/Loader";
+import ButtonPagesWrapper from "../../Components/ButtonPagesWraper";
+import { getAnimals } from "../../Store/Animals/animals.actions";
+import {list} from '../../Store/SelectAnimal/selectAnimal.actions'
+import { connect } from "react-redux";
+import { awaitTime } from "../../Utils/utils";
+import ListAnimals from "../../Components/ListAnimals";
+import {filterAnimalById} from "../../Utils/utils"
+import AnimalDetail from "../../Components/AnimalDetail";
 
-class Animals extends React.Component{
-    
-    constructor(props){
-        super(props);
-        this.state = {
-            data:[],
-            animal_by_id:[],
-            url_query:{
-                size:{
-                    'PP':false,
-                    'P':false,
-                    'M':false,
-                    'G':false,
-                    'GG':false,
-                },
-                type:{
-                    'c':false,
-                    'd':false
-                }
-            },
-            is_logged:false,
-            display:false,
-            display_animal:false
-        }
+/* const publicService = new apiPublicService(); */
+class Animals extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      is_logged: false,
+      display: false,
+      display_animal: false,
+    };
 
-        this.handleFilterQuery = this.handleFilterQuery.bind(this);
-        this.getFilteredData = this.getFilteredData.bind(this);
-        this.handleChange = this.handleChange.bind(this)
-        this.showData = this.showData.bind(this)
-        this.eventHandler = this.eventHandler.bind(this)
-        this.getData = this.getData.bind(this)
-        
-    }
- 
-    handleChange(e){
-        e.preventDefault()
-        console.log(e.target.checked)
-    }
-    showData(){
-        console.log(this.state.url_query_form)
-        console.log('kakakakaka')
-    }
-    async getData(){
-        const publicService = new apiPublicService();
-        const data = await publicService.getAnimals(); 
-        this.setState({data:data})
-        console.log(this.state.data)
-    }
-    async componentDidMount(){
-        await this.getData()
-        await this.isLogged()
-        this.setState({display:true})
-    }
+    this.handleFilterQuery = this.handleFilterQuery.bind(this);
+    this.getFilteredData = this.getFilteredData.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.showData = this.showData.bind(this);
+    this.eventHandler = this.eventHandler.bind(this);
+    this.getData = this.getData.bind(this);
+  }
 
-    handleFilterQuery(event) {
-        event.preventDefault()
-        console.log(event.target.value)
-    }
-    async getFilteredData(){
-        /* const service = new apiPublicService();
+  handleChange(e) {
+    e.preventDefault();
+    console.log(e.target.checked);
+  }
+  showData() {
+    console.log(this.state.url_query_form);
+    console.log("kakakakaka");
+  }
+  async getData(page = "1") {
+    console.log("teste", page);
+    await this.props.getAnimals(String(page));
+    window.scrollTo({
+      top: 200,
+      behavior: "smooth",
+    });
+  }
+  async componentDidMount() {
+    await this.isLogged();
+    await this.getData();
+
+    await awaitTime(1000);
+    this.setState({ display: true });
+    window.scrollTo({
+      top: 200,
+      behavior: "smooth",
+    });
+
+    console.log("see animal", this.props.selectAnimal);
+  }
+
+  handleFilterQuery(event) {
+    event.preventDefault();
+    console.log(event.target.value);
+  }
+  async getFilteredData() {
+    /* const service = new apiPublicService();
         const data = await service.getAnimals() */
-        var url_query = String();
-        var count = 0;
-        for (var key in this.state.url_query) {
-            if(this.state.url_query[key].length>0){
-                if(count>0){
-                    url_query = url_query + '&' + this.state.url_query[key]
-                }else{
-                    url_query = url_query + this.state.url_query[key]
-                }
-                count = count +1
-            }
-          }
-        console.log(url_query)  
-    }
-    eventHandler(data){
-        console.log(data)
-        this.setState({url_query_form:data})
-    }
-    showAnimalDetail(id){
-        /* console.log(this.state.data.filter(this.state.data = 1)) */
-        console.log('id',id)
-        console.log(...
-            this.state.data.filter((animal)=>{
-                return animal['id'] === id
-            })
-        )
-    }
-    
-    async isLogged(){
-        const userService = new UserService();
-        var logged;
-        logged = await userService.is_logged();
-        console.log('logado?', logged)
-        this.setState({is_logged:logged})
-        console.log(this.state['is_logged'])
-    }
-
-    render(){
-        if(this.state.display){
-            return(
-                <>
-                    <DefaultPage>
-                        {/*  */}
-
-
-                        {/* Animal card */}
-                        <Container margin-top = '10px' id = 'container-row-animal'>
-                            <Row >
-                                {/* Card */}
-                                    {/* Rendering animal card */}
-                                    {this.state.data.map(
-                                        ({id,animal_type,age,animal_photo,size,
-                                            location,description,show,sex,sex_display,
-                                            animal_type_display,location_display,
-                                            size_display,
-                                        }
-                                            ) => (
-                                        <Col key= {String(id)}
-                                        className="pt-3" lg = '4' md = '6' sm = '12' xs = '12' id = 'col_animal'>
-                                            <AnimalCard 
-                                                key = {id}
-                                                animal_photo = {animal_photo}
-                                                animal_type = {animal_type}
-                                                animal_type_display = {animal_type_display}
-                                                location_display = {location_display}
-                                                size_display = {size_display}
-                                                age = {age}
-                                                size = {size}
-                                                location = {location}
-                                                description = {description} 
-                                                show = {show}
-                                                sex = {sex}
-                                                sex_display = {sex_display}
-                                                is_logged = {this.state.is_logged}
-                                                id = {id}
-                                                deleteCallback = {()=>{this.getData()}}
-                                                callbackAnimalDetail = {(id)=>{
-                                                    this.showAnimalDetail(id)
-                                                }}
-                                                />
-                                        </Col>   
-                                        
-                                        ))}
-                                
-                            </Row>
-                        </Container>
-                    </DefaultPage>
-                </>
-            )
-        }else{
-            return(
-                <DefaultPage>
-                    <Loader display = {!this.state.display}/>
-                </DefaultPage>
-            )
+    var url_query = String();
+    var count = 0;
+    for (var key in this.state.url_query) {
+      if (this.state.url_query[key].length > 0) {
+        if (count > 0) {
+          url_query = url_query + "&" + this.state.url_query[key];
+        } else {
+          url_query = url_query + this.state.url_query[key];
         }
-        
+        count = count + 1;
+      }
     }
+    console.log(url_query);
+  }
+  eventHandler(data) {
+    console.log(data);
+    this.setState({ url_query_form: data });
+  }
+  showAnimalDetail(id) {
+    console.log(
+      ...this.state.data.filter((animal) => {
+        return animal["id"] === id;
+      })
+    );
+  }
+
+  async isLogged() {
+    const userService = new UserService();
+    var logged;
+    logged = await userService.is_logged();
+    console.log("logado?", logged);
+    this.setState({ is_logged: logged });
+    console.log(this.state["is_logged"]);
+  }
+
+  render() {
+    console.log('teste filter', )
+    console.log('teste animal',this.props.selectAnimal);
+    if (this.state.display) {
+      return (
+        <>
+          <DefaultPage>
+            {/* Lista dos animais */}
+            {this.props.selectAnimal.type === "list" && (
+              <>
+                <ListAnimals animals={this.props.animals.data} />
+                <ButtonPagesWrapper
+                  prevPage={this.props.animals.prevPage}
+                  nextPage={this.props.animals.nextPage}
+                  pageCallback={(page) => {
+                    console.log("pagina", page);
+                    this.getData(page);
+                  }}
+                />
+              </>
+            )}
+            {/* Animais específicos */}
+            {(this.props.selectAnimal.type === "see") && (<>            
+              <button 
+              className="custom-btn show"
+              style = {{marginBottom:'0.5rem'}}
+              onClick={()=>{
+                this.props.returnPage()
+              }}>
+                Voltar
+              </button>
+              <AnimalDetail animal = {
+                filterAnimalById(
+                  this.props.animals.data,
+                  this.props.selectAnimal.id
+                )
+              } />
+            </>)}
+            {/* Edição do animal */}
+
+
+          </DefaultPage>
+        </>
+      );
+    } else {
+      return (
+        <DefaultPage>
+          <Loader display={!this.state.display} />
+        </DefaultPage>
+      );
+    }
+  }
 }
 
-export default Animals;
+const mapDispatchToProps = (dispatch) => ({
+  getAnimals: (page) => dispatch(getAnimals(page)),
+  returnPage: () => dispatch(list())
+});
+
+const mapStateToProps = (state) => ({
+  animals: state.animals,
+  selectAnimal: state.selectAnimal,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Animals);
